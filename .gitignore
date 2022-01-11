@@ -1,0 +1,7 @@
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj*
+.Rproj.user
+.idea/
+inst/extdata/
