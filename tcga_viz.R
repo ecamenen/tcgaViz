@@ -1,24 +1,36 @@
 # a simple tool to depict proportions of immune cells in any tumors
 #relative to the mean or median or quartiles of expression of any gene (or a signature?)
 
+# Input variables
+algorithm <- "Cibersort_ABS"
+disease <- "breast invasive carcinoma"
 geneX <- "ICOS"
 
-library(readxl)
+library(openxlsx)
 library(dplyr)
 library(ggplot2)
 library(ggpubr)
 library(tidyverse)
 library(rstatix)
 library(reshape2)
+library(readr)
+library(data.table)
 
 setwd("Documents/TCGA/")
 #Import Cybersort dataset (to be modified for various algorithms: sheet)
 #ideally one would want to be able to select which algorithms to use before import
-TCGA_pop <- read_excel("TCGA.xlsx", sheet = "Cibersort_ABS")
+TCGA_pop <- read.xlsx("TCGA.xlsx", sheet = algorithm)
 #ideally one would want to be able to select tumor type before selecting the gene
-Tumor_type <- read.delim ('TCGA_phenotype_denseDataOnlyDownload.tsv', check.names = F)
+Tumor_type <- read_delim('TCGA_phenotype_denseDataOnlyDownload.tsv')
+if (!is.null(disease))
+    Tumor_type <- subset(
+        Tumor_type,
+        subset = `_primary_disease` == disease,
+        select = "sample")
+# Double the buffer size
+Sys.setenv(VROOM_CONNECTION_SIZE = 131072 * 2)
 #Import gene dataset (to be modified: pathway)
-Gene <- read.delim("EB++AdjustPANCAN_IlluminaHiSeq_RNASeqV2.geneExp.xena.txt")
+Gene <- read_tsv("EB++AdjustPANCAN_IlluminaHiSeq_RNASeqV2.geneExp.xena.gz")
 Gene <- transpose(Gene, keep.names = "col", make.names = "sample")
 
 #Merge datasets + remove sample with NA
