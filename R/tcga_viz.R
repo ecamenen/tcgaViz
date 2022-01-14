@@ -1,4 +1,4 @@
-# A visualization tool to depict proportions of immune cells in any tumors
+# A visualization tool to depict proportions of immune cells in any tumor
 # relative to the average expression of any gene (or signature).
 
 ########## Environment setting ##########
@@ -6,20 +6,9 @@
 # Input variables
 algorithm <- "Cibersort_ABS"
 disease <- "breast invasive carcinoma"
-gene_x <- "ICOS"
+gene_x <- "100130426"
 
-# Library loading
-library(openxlsx)
-library(dplyr)
-library(ggplot2)
-library(ggpubr)
-library(tidyverse)
-library(rstatix)
-library(reshape2)
-library(readr)
-library(data.table)
-
-setwd("Documents/TCGA/")
+setwd(Sys.glob(file.path("*", "extdata")))
 
 ########## Dataset loading ##########
 
@@ -27,7 +16,10 @@ setwd("Documents/TCGA/")
 tcga_pop <- read.xlsx("TCGA.xlsx", sheet = algorithm)
 
 # Import the tumor type file
-tumor_type <- read_delim("TCGA_phenotype_denseDataOnlyDownload.tsv")
+tumor_type <- read_delim(
+    "TCGA_phenotype_denseDataOnlyDownload.tsv",
+    show_col_types = FALSE
+)
 if (!is.null(disease)) {
     tumor_type <- subset(
         tumor_type,
@@ -39,7 +31,10 @@ if (!is.null(disease)) {
 # Double the buffer size
 Sys.setenv(VROOM_CONNECTION_SIZE = 131072 * 2)
 # Import the gene file
-gene <- read_tsv("EB++AdjustPANCAN_IlluminaHiSeq_RNASeqV2.geneExp.xena.gz")
+gene <- read_delim(
+    "EB++AdjustPANCAN_IlluminaHiSeq_RNASeqV2.geneExp.xena.gz",
+    show_col_types = FALSE
+)
 gene <- transpose(gene, keep.names = "col", make.names = "sample")
 
 # Merge datasets

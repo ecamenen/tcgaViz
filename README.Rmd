@@ -1,0 +1,32 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# tcgaViz
+
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/tcgaViz)](https://CRAN.R-project.org/package=tcgaViz)
+[![R build status](https://github.com/ecamenen/tcgaViz/workflows/R-CMD-check/badge.svg)](https://github.com/ecamenen/tcgaViz/actions)
+<!-- badges: end -->
+
+A visualization tool to depict proportions of immune cells in any tumor relative to the average expression of any gene (or signature).
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("ecamenen/tcgaViz")
+```
