@@ -1,0 +1,42 @@
+  ---
+title: "Tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tcgaViz)
+library(ggpubr, quietly = TRUE)
+```
+
+#### Load two data sets
+(with the same cancer type and TCGA sample identifiers)
+```{r data}
+data(tcga)
+head(tcga$genes)
+head(tcga$cells)
+```
+
+#### Violin plot of cell subtypes
+(and significance of a Wilcoxon adjusted test according to the expression
+ level [high or low] of a selected gene)
+```{r plot}
+df <- convert_biodata(tcga$genes, tcga$cells, select = "A")
+p <- plot_violin(df, gene = "gene A")
+stats <- calculate_pvalue(df)
+p + stat_pvalue_manual(stats, label = "p.adj.signif")
+```
+
+```{r end}
+sessionInfo()
+```

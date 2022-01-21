@@ -3,3 +3,5 @@
 ^\.idea$
 ^dev$
 ^README\.Rmd$
+^doc$
+^Meta$
