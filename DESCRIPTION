@@ -17,6 +17,8 @@ Description: A vizualisation tool to depict proportions of
     immune cells in any tumor relative to the average expression of any
     gene (or signature).
 License: GPL-3
+Depends: 
+    R (>= 2.10)
 Imports: 
     data.table,
     dplyr,
