@@ -30,3 +30,24 @@ You can install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("ecamenen/tcgaViz")
 ```
+## Example
+
+#### Load two data sets
+(with the same cancer type and TCGA sample identifiers)
+```{r setup}
+library(tcgaViz)
+library(ggpubr, quietly = TRUE)
+data(tcga)
+head(tcga$genes)
+head(tcga$cells)
+```
+
+#### Violin plot of cell subtypes
+(and significance of a Wilcoxon adjusted test according to the expression
+ level [high or low] of a selected gene)
+```{r plot}
+df <- convert_biodata(tcga$genes, tcga$cells, select = "A")
+p <- plot_violin(df, gene = "gene A")
+stats <- calculate_pvalue(df)
+p + stat_pvalue_manual(stats, label = "p.adj.signif")
+```
