@@ -35,5 +35,8 @@ jobs:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
 
+      - name: BiocCheck
+        run: R -e 'BiocCheck::BiocCheck(".")'
+
       - name: Covr
         run: Rscript -e 'covr::codecov(type = "all")'

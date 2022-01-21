@@ -9,6 +9,8 @@
 status](https://www.r-pkg.org/badges/version/tcgaViz)](https://CRAN.R-project.org/package=tcgaViz)
 [![R build
 status](https://github.com/ecamenen/tcgaViz/workflows/R-CMD-check/badge.svg)](https://github.com/ecamenen/tcgaViz/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/ecamenen/tcgaViz/branch/develop/graph/badge.svg)](https://codecov.io/gh/ecamenen/tcgaViz?branch=master)
 <!-- badges: end -->
 
 A visualization tool to depict proportions of immune cells in any tumor

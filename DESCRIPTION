@@ -33,7 +33,8 @@ Suggests:
     rmarkdown,
     spelling,
     testthat,
-    covr
+    covr,
+    BiocCheck
 VignetteBuilder: 
     knitr
 biocViews: Visualization, ImmunoOncology, Genetics,
