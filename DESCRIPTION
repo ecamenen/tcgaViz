@@ -32,7 +32,8 @@ Suggests:
     knitr,
     rmarkdown,
     spelling,
-    testthat
+    testthat,
+    covr
 VignetteBuilder: 
     knitr
 biocViews: Visualization, ImmunoOncology, Genetics,

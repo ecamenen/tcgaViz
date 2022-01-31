@@ -34,3 +34,6 @@ jobs:
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
+
+      - name: Covr
+        run: Rscript -e 'covr::codecov(type = "all")'
