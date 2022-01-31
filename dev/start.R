@@ -26,7 +26,6 @@ use_description(
 )
 use_readme_rmd()
 use_cran_badge()
-use_github_actions_badge()
 use_package_doc()
 # promptPackage(name)
 for (f in c(".idea/", "dev/", "inst/extdata/")) {
@@ -48,3 +47,7 @@ for (p in c(
 )) {
     use_package(p)
 }
+use_coverage()
+use_github_actions()
+use_github_actions_badge()
+use_data_raw()
