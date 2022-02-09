@@ -20,21 +20,25 @@ License: GPL-3
 Depends: 
     R (>= 2.10)
 Imports: 
+    config,
     data.table,
     dplyr,
     ggplot2,
     ggpubr,
+    golem,
     openxlsx,
     readr,
     reshape2,
-    rstatix
-Suggests: 
+    rlang,
+    rstatix,
+    shiny
+Suggests:
+    BiocCheck,
+    covr,
     knitr,
     rmarkdown,
     spelling,
-    testthat,
-    covr,
-    BiocCheck
+    testthat
 VignetteBuilder: 
     knitr
 biocViews: Visualization, ImmunoOncology, Genetics,

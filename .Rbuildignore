@@ -1,7 +1,11 @@
-^tcgaViz\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.idea$
+^data-raw$
+dev_history.R
 ^dev$
+$run_dev.*
+^app.R$
 ^README\.Rmd$
 ^doc$
 ^Meta$

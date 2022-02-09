@@ -4,7 +4,8 @@
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
-#' @import ggplot2 rstatix
+#' @import ggplot2 golem rlang rstatix shiny
+#' @importFrom config get
 #' @importFrom data.table transpose
 #' @importFrom dplyr mutate
 #' @importFrom ggpubr ggviolin ggpar stat_pvalue_manual

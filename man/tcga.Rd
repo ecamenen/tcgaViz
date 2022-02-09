@@ -21,10 +21,10 @@ metadata and cell abundance.
 }
 \details{
 \itemize{
-\item \code{genes}: Random data based on the RNASeq distribution of The Cancer
-Genome Atlas (TCGA) database.
-\item \code{phenotypes}: Metadata based on the breast cancer model from the
-TCGA database containing sample ID, sample type ID, sample type and
+\item \code{genes}: Random data based on the RNASeq distribution of The
+Cancer Genome Atlas (TCGA) database.
+\item \code{phenotypes}: Metadata based on the breast cancer model from
+the TCGA database containing sample ID, sample type ID, sample type and
 primary disease.
 \item \code{cells}: Random data based on the distribution of abundance
 estimates of certain cell types using the Cibersort algorithm.
