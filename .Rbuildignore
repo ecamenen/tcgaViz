@@ -11,3 +11,7 @@ $run_dev.*
 ^Meta$
 ^\.github$
 ^codecov\.yml$
+^Dockerfile$
+^\.dockerignore$
+.local/
+.config/

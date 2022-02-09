@@ -7,3 +7,5 @@ inst/doc
 .idea/
 /doc/
 /Meta/
+.local/
+.config/
