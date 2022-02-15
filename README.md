@@ -26,9 +26,28 @@ You can install the development version from
 devtools::install_github("ecamenen/tcgaViz")
 ```
 
+## Docker
+
+###### Pull
+
+    docker pull eucee/tcga-viz
+
+###### (Local installation)
+
+    docker build -t tcga-viz .
+
+###### Run in command-line
+
+    docker run --rm \
+      -p 127.0.0.1:8787:8787 \
+      -v $(pwd):/home/rstudio \
+      -e ROOT=TRUE \
+      -e DISABLE_AUTH=true \
+      tcga-viz
+
 ## Example
 
-#### Load two data sets
+###### Load two data sets
 
 (with the same cancer type and TCGA sample identifiers)
 
@@ -61,7 +80,7 @@ head(tcga$cells)
 #> 6 TCGA.6  BRCA 0.1658555 0.1802094 0.1786337 0.1847483 0.1669041
 ```
 
-#### Violin plot of cell subtypes
+###### Violin plot of cell subtypes
 
 (and significance of a Wilcoxon adjusted test according to the
 expression level \[high or low\] of a selected gene)
