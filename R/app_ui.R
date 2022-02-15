@@ -7,7 +7,30 @@ app_ui <- function(request) {
     tagList(
         golem_add_external_resources(),
         fluidPage(
-            h1("tcgaViz")
+            h1("tcgaViz"),
+            sidebarLayout(
+                sidebarPanel(
+                    tabsetPanel(
+                        id = "tabset",
+                        tabPanel(
+                            "Data",
+                            fileInput("cell_file", label = "Cell file"),
+                            fileInput("phenotype_file", label = "Phenotype file"),
+                            fileInput("gene_file", label = "Gene file")
+                        )
+                    )
+                ),
+                mainPanel(
+                    tabsetPanel(
+                        type = "tabs",
+                        id = "navbar",
+                        tabPanel(
+                            "Violin plot",
+                            plotOutput("violin_plot")
+                        )
+                    )
+                )
+            )
         )
     )
 }
