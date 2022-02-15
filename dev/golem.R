@@ -8,5 +8,7 @@ remove_favicon()
 use_utils_ui()
 use_utils_server()
 
+shinyAppTemplate(path, "all")
+
 # add_dockerfile()
 # add_dockerfile_shinyproxy()
