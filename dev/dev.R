@@ -8,14 +8,21 @@ use_test()
 
 # use_tidy_style()
 use_tidy_description()
-style_pkg(transformers = tidyverse_style(indent_by = 4))
+style_pkg(
+    transformers = tidyverse_style(indent_by = 4),
+    exclude_files = c(
+        "R/app_config.R",
+        "R/run_app.R",
+        "tests/testthat/test-golem-recommended.R"
+    )
+  )
 lintr::lint_package()
 
 document()
+build(path = ".")
+install(upgrade = "never")
 check()
-install()
-build()
-BiocCheck::BiocCheck()
+BiocCheck::BiocCheck(paste0(get_golem_name(), "_", get_golem_version(), ".tar.gz"))
 
 build_vignettes()
 build_readme()

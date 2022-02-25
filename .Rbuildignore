@@ -13,6 +13,9 @@ $run_dev.*
 ^codecov\.yml$
 ^Dockerfile$
 ^\.dockerignore$
-.local/
-.config/
-^bin/phantomjs$
+^.local$
+^.config$
+^.cache$
+^bin$
+^rsconnect$
+^.*tcga_raw\.rda$
