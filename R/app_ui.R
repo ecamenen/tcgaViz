@@ -4,6 +4,7 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
+    options(shiny.maxRequestSize = 30 * 1024^3)
     tagList(
         golem_add_external_resources(),
         fluidPage(
@@ -14,9 +15,24 @@ app_ui <- function(request) {
                         id = "tabset",
                         tabPanel(
                             "Data",
-                            fileInput("cell_file", label = "Cell file"),
-                            fileInput("phenotype_file", label = "Phenotype file"),
-                            fileInput("gene_file", label = "Gene file")
+                            fileInput(
+                                "cell_file",
+                                label = "Cell file",
+                                accept = c(".xls", ".xlsx")
+                            ),
+                            fileInput(
+                                "phenotype_file",
+                                label = "Phenotype file",
+                                accept = c(".csv", ".tsv")
+                            ),
+                            fileInput(
+                                "gene_file",
+                                label = "Gene file",
+                                accept = c(".csv", ".tsv", ".gz", ".xena")
+                            ),
+                            selectInput("algorithm", "Algorithm", NULL),
+                            selectInput("disease", "Disease", NULL),
+                            selectInput("gene_x", "Gene", NULL)
                         )
                     )
                 ),

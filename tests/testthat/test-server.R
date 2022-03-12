@@ -12,7 +12,8 @@ test_that("reactives and output updates", {
         session$setInputs(
             cell_file = set_file("cell_pop.xlsx"),
             phenotype_file = set_file("tcga_phenotypes.tsv"),
-            gene_file = set_file("tcga_genes.tsv")
+            gene_file = set_file("tcga_genes.tsv"),
+            gene_x = "A"
         )
 
         for (i in c("cells", "phenotypes", "genes")) {
@@ -23,7 +24,11 @@ test_that("reactives and output updates", {
             }
         }
 
-        expect_equal(colnames(vars$phenotypes), "sample")
+        col_pheno <- c("sample", "sample_type_id", "sample_type", "_primary_disease")
+        expect_equal(
+            colnames(vars$phenotypes),
+            col_pheno
+        )
         expect_equal(
             colnames(vars$cells),
             c("sample", "study", paste0("X", seq(5)))
@@ -33,16 +38,18 @@ test_that("reactives and output updates", {
         expect_true(all(vars$cells[, 3:7] <= 1))
         expect_true(
             all(
-                sapply(c(2:6),
-                       function(x) is(vars$genes[, x], "numeric"))
+                sapply(
+                    c(2:6),
+                    function(x) is(vars$genes[, x], "numeric")
                 )
             )
+        )
 
         colnames(vars$genes)[1] <- "sample"
         vars$genes <- vars$genes[order(vars$genes$sample), ]
         rownames(vars$genes) <- seq(30)
         expect_equal(vars$dataset, vars$genes)
 
-        output$violin_plot
+        # output$violin_plot
     })
 })
