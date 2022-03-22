@@ -4,7 +4,6 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
-    options(shiny.maxRequestSize = 30 * 1024^3)
     tagList(
         golem_add_external_resources(),
         fluidPage(
@@ -15,24 +14,20 @@ app_ui <- function(request) {
                         id = "tabset",
                         tabPanel(
                             "Data",
-                            fileInput(
-                                "cell_file",
-                                label = "Cell file",
-                                accept = c(".xls", ".xlsx")
-                            ),
-                            fileInput(
-                                "phenotype_file",
-                                label = "Phenotype file",
-                                accept = c(".csv", ".tsv")
-                            ),
-                            fileInput(
-                                "gene_file",
-                                label = "Gene file",
-                                accept = c(".csv", ".tsv", ".gz", ".xena")
-                            ),
                             selectInput("algorithm", "Algorithm", NULL),
                             selectInput("disease", "Disease", NULL),
-                            selectInput("gene_x", "Gene", NULL)
+                            selectizeInput(
+                              "gene_x",
+                              "Gene",
+                              NULL,
+                              multiple = FALSE,
+                              options = list(
+                                  maxItems = 1,
+                                  maxOptions = 3,
+                                  placeholder = "Select a gene",
+                                  mode = "multi"
+                                  )
+                              )
                         )
                     )
                 ),
@@ -42,7 +37,7 @@ app_ui <- function(request) {
                         id = "navbar",
                         tabPanel(
                             "Violin plot",
-                            plotOutput("violin_plot")
+                            plotOutput("violin_plot", height = 700)
                         )
                     )
                 )

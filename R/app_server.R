@@ -6,102 +6,113 @@
 app_server <- function(input, output, session) {
 
     ########## Dataset loading ##########
+    path <- file.path(get_golem_wd(), "inst", "extdata")
+    show_notif(
+        load(file.path(path, "tcga_raw.rda")),
+        "Data loading in progres..."
+    )
 
     vars <- reactiveValues(
-        cells = NULL,
-        phenotypes = NULL,
-        genes = NULL,
+        cells = tcga_raw$cells,
+        phenotypes = tcga_raw$phenotypes,
+        genes = tcga_raw$genes,
         dataset = NULL
     )
 
-    observeEvent(input$cell_file, {
-        vars$cells <- read.xlsx(input$cell_file$datapath)
-        freezeReactiveValue(input, "algorithm")
-        updateSelectInput(
-            inputId = "algorithm",
-            choices = sort(openxlsx::getSheetNames(input$cell_file$datapath))
-        )
-    })
+      freezeReactiveValue(input, "algorithm")
+      print_dev("Set cells choices")
+      updateSelectInput(
+          inputId = "algorithm",
+          choices = sort(names(tcga_raw$cells))
+      )
+
+      freezeReactiveValue(input, "disease")
+      print_dev("Set disease choices")
+      updateSelectInput(
+          inputId = "disease",
+          choices = c(
+              # "All",
+              sort(unique(tcga_raw$phenotypes$`_primary_disease`))
+          ),
+          selected = "breast invasive carcinoma"
+      )
+
+      init <- Sys.time()
+      print_dev("Gene loading in progress")
+      updateSelectizeInput(
+          inputId = "gene_x",
+          choices = colnames(tcga_raw$genes)[-1],
+          server = TRUE,
+          selected = ""
+      )
+      print_dev(Sys.time() - init)
 
     observeEvent(input$algorithm, {
-        req(input$cell_file)
-        vars$cells <- read.xlsx(
-            input$cell_file$datapath,
-            sheet = input$algorithm
-        )
+        print_dev("Cell formatting")
+        req(input$algorithm != "")
+        vars$cells <- tcga_raw$cells[[input$algorithm]]
     })
-
-    # Import the phenotypes file
-    observeEvent(input$phenotype_file, {
-        vars$phenotypes <- read_delim(
-            input$phenotype_file$datapath,
-            show_col_types = FALSE
-        )
-        freezeReactiveValue(input, "disease")
-        updateSelectInput(
-            inputId = "disease",
-            choices = c(
-                "All",
-                sort(unique(vars$phenotypes$`_primary_disease`))
-            )
-        )
-    })
-
+    
     observeEvent(input$disease, {
-        req(vars$phenotypes)
-        req(input$disease != "All")
-        vars$phenotypes <- subset(
-            vars$phenotypes,
-            subset = `_primary_disease` == input$disease
-        )
+      message_dev("Phenotype formatting")
+      req(input$disease != "All")
+      req(input$disease != "")
+      print_dev(input$disease)
+      vars$phenotypes <- tcga_raw$phenotypes[
+            tcga_raw$phenotypes$`_primary_disease` == input$disease,
+            "sample"
+        ]
     })
-
-    # Double the buffer size
-    Sys.setenv(VROOM_CONNECTION_SIZE = 131072 * 2)
-
-    observeEvent(input$gene_file, {
-        freezeReactiveValue(input, "gene_x")
-        updateSelectInput(
-            inputId = "gene_x",
-            choices = colnames(vars$genes)[-1]
-        )
-        # Import the gene file
-        genes <- read_delim(
-            input$gene_file$datapath,
-            show_col_types = FALSE
-        )
-        vars$genes <- transpose(
-            genes,
-            keep.names = "col",
-            make.names = "sample"
-        )
+    
+    observeEvent(input$gene_x, {
+      init <- Sys.time()
+      print_dev(c("Gene formatting", input$gene_x))
+      req(input$gene_x)
+      req(input$gene_x != "")
+      vars$genes <- select(
+        tcga_raw$genes,
+        col,
+        input$gene_x
+      )
+      print_dev(Sys.time() - init)
     })
 
     # Merge datasets
-    observeEvent(c(vars$phenotypes, vars$genes), {
-        req(input$phenotype_file)
-        req(input$gene_file)
-        vars$dataset <- merge(
-            subset(vars$phenotypes, select = "sample"),
-            vars$genes,
-            by = 1
-        )
+    observeEvent(
+        c(vars$phenotypes, vars$genes, input$algorithm, input$disease), {
+          message_dev("Launching merge")
+          req(ncol(vars$phenotypes) == 1)
+          req(ncol(vars$genes) == 2)
+          init <- Sys.time()
+          print_dev("Merge in progress...")
+          vars$dataset <- merge(
+              subset(vars$phenotypes, select = "sample"),
+              vars$genes,
+              by = 1
+          )
+          print_dev(Sys.time() - init)
     })
 
     output$violin_plot <- renderPlot({
-        req(vars$cells)
+        message_dev("Launching plot")
         req(vars$dataset)
-
+        req(class(vars$cells) != "list")
+        req(input$disease)
+        print_dev("Data formatting in progress...")
         # Data formatting
         sub_cutted_melt <- isolate(
             convert_biodata(vars$dataset, vars$cells, input$gene_x)
         )
-
+        print_dev("Whatever in progress...")
         # Plot the cell subtypes according to the gene expression level
         p <- isolate(plot_violin(sub_cutted_melt, input$gene_x))
-
         # Add corrected Wilcoxon tests
-        stats <- calculate_pvalue(sub_cutted_melt)
+        stats <- show_notif(
+            calculate_pvalue(sub_cutted_melt),
+            "Statistic calculation in progres..."
+        )
+        
+        print_dev("Plot in progress...")
         p + stat_pvalue_manual(stats, label = "p.adj.signif")
     })
 
