@@ -10,6 +10,8 @@
 #' @importFrom openxlsx read.xlsx
 #' @importFrom readr read_delim
 #' @importFrom reshape2 melt
+#' @importFrom methods is
+#' @importFrom stats quantile
 #' @examples
 #' # Load two data sets with the same cancer type and
 #' # TCGA sample identifiers.

@@ -10,6 +10,8 @@
 #' @param cell_type data frame whose first two columns contain identifiers and
 #' the others float values.
 #' @param select character for a column name in gene.
+#' @param stat character for the statistic to be chosen among "mean", "median"
+#' or "quantile".
 #'
 #' @return
 #' data frame with the following columns:
@@ -28,18 +30,36 @@ convert_biodata <- function(
     gene,
     cell_type,
     select = colnames(gene)[3],
-    stat = c("mean", "median", "quantile")
-) {
+    stat = "mean") {
+
+    if (!stat %in% c("mean", "median", "quantile")) {
+          stop("Please select an option between 'mean', 'median' or 'quantile'")
+      }
 
     # Merge dataset
     data <- merge(cell_type, gene, by = 1)
 
     # Calculation of the gene expression median
-    func <- base::get(stat)(as.numeric(data[, select]), na.rm = TRUE)
-    cutoff <- eval(quote(func))
+    if (stat != "quantile") {
+        func <- base::get(stat)(as.numeric(data[, select]), na.rm = TRUE)
+        cutoff <- eval(quote(func))
 
-    # Add a column for a higher level than the selected gene
-    cutted <- mutate(data, high = data[, select] > cutoff)
+        # Add a column for a higher level than the selected gene
+        cutted <- mutate(data, high = data[, select] > cutoff)
+    } else {
+        cutoff <- quantile(as.numeric(data[, select]), na.rm = TRUE)[c(2, 4)]
+
+        data$high <- rep("")
+        for (i in seq_along(data[, 1])) {
+            if (data[i, select] < cutoff[1]) {
+                  data[i, "high"] <- names(cutoff)[1]
+              }
+            if (data[i, select] > cutoff[2]) {
+                  data[i, "high"] <- names(cutoff)[2]
+              }
+        }
+        cutted <- data[data$high != "", ]
+    }
 
     # Remove the samples, study and the gene columns
     cutted_melt <- subset(

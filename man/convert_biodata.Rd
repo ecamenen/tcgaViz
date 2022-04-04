@@ -4,7 +4,7 @@
 \alias{convert_biodata}
 \title{Format biological data}
 \usage{
-convert_biodata(gene, cell_type, select = colnames(gene)[3])
+convert_biodata(gene, cell_type, select = colnames(gene)[3], stat = "mean")
 }
 \arguments{
 \item{gene}{data frame whose first two columns contain identifiers and the
@@ -14,6 +14,9 @@ others float values.}
 the others float values.}
 
 \item{select}{character for a column name in gene.}
+
+\item{stat}{character for the statistic to be chosen among "mean", "median"
+or "quantile".}
 }
 \value{
 data frame with the following columns:

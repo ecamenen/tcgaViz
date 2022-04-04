@@ -26,13 +26,15 @@ Imports:
     ggplot2,
     ggpubr,
     golem,
+    methods,
     openxlsx,
     readr,
     reshape2,
     rlang,
     rstatix,
     shiny,
-    shinyFeedback
+    shinyFeedback,
+    stats
 Suggests:
     BiocCheck,
     covr,
