@@ -16,18 +16,19 @@ app_ui <- function(request) {
                             "Data",
                             selectInput("algorithm", "Algorithm", NULL),
                             selectInput("disease", "Disease", NULL),
+                            selectInput("tissue", "Tissue", NULL),
                             selectizeInput(
-                              "gene_x",
-                              "Gene",
-                              NULL,
-                              multiple = FALSE,
-                              options = list(
-                                  maxItems = 1,
-                                  maxOptions = 3,
-                                  placeholder = "Select a gene",
-                                  mode = "multi"
-                                  )
-                              )
+                                "gene_x",
+                                "Gene",
+                                NULL,
+                                multiple = FALSE,
+                                options = list(
+                                    maxItems = 1,
+                                    maxOptions = 3,
+                                    placeholder = "Select a gene",
+                                    mode = "multi"
+                                )
+                            )
                         )
                     )
                 ),
