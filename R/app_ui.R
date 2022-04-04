@@ -29,7 +29,8 @@ app_ui <- function(request) {
                                     placeholder = "Select a gene",
                                     mode = "multi"
                                 )
-                            )
+                            ),
+                            selectInput("stat", "Statistics", choices = c("mean", "median", "quantile"))
                         )
                     )
                 ),

@@ -24,13 +24,19 @@
 #' @examples
 #' data(tcga)
 #' (df_formatted <- convert_biodata(tcga$genes, tcga$cells, "A"))
-convert_biodata <- function(gene, cell_type, select = colnames(gene)[3]) {
+convert_biodata <- function(
+    gene,
+    cell_type,
+    select = colnames(gene)[3],
+    stat = c("mean", "median", "quantile")
+) {
 
     # Merge dataset
     data <- merge(cell_type, gene, by = 1)
 
     # Calculation of the gene expression median
-    cutoff <- mean(as.numeric(data[, select]), na.rm = TRUE)
+    func <- base::get(stat)(as.numeric(data[, select]), na.rm = TRUE)
+    cutoff <- eval(quote(func))
 
     # Add a column for a higher level than the selected gene
     cutted <- mutate(data, high = data[, select] > cutoff)

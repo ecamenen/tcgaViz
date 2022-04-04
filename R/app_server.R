@@ -134,10 +134,11 @@ app_server <- function(input, output, session) {
         req(vars$dataset)
         req(!is(vars$cells, "list"))
         req(input$disease)
+        req(input$stat)
         print_dev("Data formatting in progress...")
         # Data formatting
         sub_cutted_melt <- isolate(
-            convert_biodata(vars$dataset, vars$cells, input$gene_x)
+            convert_biodata(vars$dataset, vars$cells, input$gene_x, input$stat)
         )
         print_dev("Whatever in progress...")
         # Plot the cell subtypes according to the gene expression level
