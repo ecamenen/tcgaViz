@@ -5,32 +5,39 @@
 
 algorithm <- "Cibersort_ABS"
 disease <- "breast invasive carcinoma"
-gene_x <- "A"
-gene_file <- "/tcga_genes.tsv"
-cell_file <- "/cell_pop.xlsx"
-phenotype_file <- "/tcga_phenotypes.tsv"
-path <- file.path("inst", "extdata")
+gene_x <- "ICOS"
+tissue <- "Primary Tumor"
+path <- file.path(golem::get_golem_wd(), "inst", "extdata")
 
 ########## Dataset loading ##########
+load(file.path(path, "tcga_raw.rda"))
+message("TCGA loading in progess...")
 
 # Import the phenotypes file
-tcga_pop <- read.xlsx(paste0(path, cell_file), sheet = algorithm)
+tcga_pop <- tcga_raw$cells[[algorithm]]
 
 # Import the tumor type file
-tumor_type <- read_delim(paste0(path, phenotype_file), show_col_types = FALSE)
+diseases <- tcga_raw$phenotype
 if (!is.null(disease)) {
-    tumor_type <- subset(
-        tumor_type,
-        subset = `_primary_disease` == disease,
-        select = "sample"
-    )
+    diseases <- diseases[
+        diseases$`_primary_disease` == disease,
+    ]
 }
 
-# Double the buffer size
-Sys.setenv(VROOM_CONNECTION_SIZE = 131072 * 2)
+tumor_type <- diseases
+if (!is.null(disease)) {
+    tumor_type <- diseases[
+        diseases$sample_type == tissue,
+        "sample"
+    ]
+}
+
 # Import the gene file
-gene <- read_delim(paste0(path, gene_file), show_col_types = FALSE)
-gene <- transpose(gene, keep.names = "col", make.names = "sample")
+gene <- select(
+    tcga_raw$genes,
+    col,
+    all_of(gene_x)
+)
 
 # Merge datasets
 dataset <- merge(tumor_type, gene, by = 1)
