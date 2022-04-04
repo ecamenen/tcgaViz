@@ -30,10 +30,12 @@ if (!is.null(disease)) {
         diseases$sample_type == tissue,
         "sample"
     ]
+    if (nrow(tumor_type) == 0)
+        stop("Selected tissue has 0 element.")
 }
 
 # Import the gene file
-gene <- select(
+gene <- dplyr::select(
     tcga_raw$genes,
     col,
     all_of(gene_x)
@@ -50,4 +52,4 @@ p <- plot_violin(sub_cutted_melt, gene_x)
 
 # Add corrected Wilcoxon tests
 stat <- calculate_pvalue(sub_cutted_melt)
-p + stat_pvalue_manual(stat, label = "p.adj.signif")
+p + ggpubr::stat_pvalue_manual(stat, label = "p.adj.signif")

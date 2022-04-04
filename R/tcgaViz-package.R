@@ -2,7 +2,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import ggplot2 golem rlang rstatix shiny
+#' @import ggplot2 golem rlang rstatix shiny shinyFeedback
 #' @importFrom config get
 #' @importFrom data.table transpose
 #' @importFrom dplyr mutate

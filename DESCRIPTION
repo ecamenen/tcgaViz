@@ -11,7 +11,7 @@ Authors@R:
              family = "Marodon",
              role = "aut"),
       person(given = "Nicolas",
-             family = "Petit",
+             family = "Aubert",
              role = "aut"))
 Description: A vizualisation tool to depict proportions of
     immune cells in any tumor relative to the average expression of any
@@ -31,7 +31,8 @@ Imports:
     reshape2,
     rlang,
     rstatix,
-    shiny
+    shiny,
+    shinyFeedback
 Suggests:
     BiocCheck,
     covr,

@@ -7,6 +7,7 @@ app_ui <- function(request) {
     tagList(
         golem_add_external_resources(),
         fluidPage(
+            shinyFeedback::useShinyFeedback(),
             h1("tcgaViz"),
             sidebarLayout(
                 sidebarPanel(

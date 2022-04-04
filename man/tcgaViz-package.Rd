@@ -14,7 +14,7 @@ A vizualisation tool to depict proportions of immune cells in any tumor relative
 Authors:
 \itemize{
   \item Gilles Marodon
-  \item Nicolas Petit
+  \item Nicolas Aubert
 }
 
 }

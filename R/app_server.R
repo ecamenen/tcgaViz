@@ -83,10 +83,18 @@ app_server <- function(input, output, session) {
             req(input$tissue != "All")
             req(input$tissue != "")
             print_dev(input$tissue)
-            vars$phenotypes <- vars$phenotypes_temp[
+            phenotypes <- vars$phenotypes_temp[
                 vars$phenotypes_temp$sample_type == input$tissue,
                 "sample"
             ]
+            condition <- (nrow(phenotypes) > 0)
+            shinyFeedback::feedbackWarning(
+                "tissue",
+                !condition,
+                "Please select a tissue that have samples"
+            )
+            req(condition)
+            vars$phenotypes <- phenotypes
         }
     )
 

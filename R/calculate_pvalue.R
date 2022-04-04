@@ -17,6 +17,7 @@
 #' stats <- calculate_pvalue(df)
 calculate_pvalue <- function(data, p_threshold = 0.05) {
     data %>%
+        remove_similar_type_levels() %>%
         group_by(cell_type) %>%
         wilcox_test(value ~ high) %>%
         adjust_pvalue(method = "BH") %>%
