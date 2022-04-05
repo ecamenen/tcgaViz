@@ -6,6 +6,8 @@
 #' @param data dataframe containing columns named high (logical),
 #' cell_type (factor) and value (float).
 #' @param gene character for the name of the gene plotted in the title.
+#' @param type character for the type of plot to be chosen among "violin"
+#' or "boxplot".
 #'
 #' @return ggrub object for a violon plot.
 #' @export
@@ -17,15 +19,21 @@
 #' p <- plot_violin(df)
 #' stats <- calculate_pvalue(df)
 #' p + stat_pvalue_manual(stats, label = "p.adj.signif")
-plot_violin <- function(data, gene = "Gene X") {
-    pop <- ggviolin(
+plot_violin <- function(data, gene = "Gene X", type = "violin") {
+    if (!type %in% c("violin", "boxplot")) {
+        stop("Please select an option between 'violin' or 'boxplot'")
+    }
+
+    func <- base::get(paste0("gg", type))(
         data = data,
         x = "high",
         y = "value",
         facet.by = "cell_type",
         outlier.shape = NA,
         color = "cell_type"
-    ) +
+    )
+
+    pop <- eval(quote(func)) +
         scale_x_discrete(
             name = paste(gene, "level"),
             labels = c(`FALSE` = "Low", `TRUE` = "High")

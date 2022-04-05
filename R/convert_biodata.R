@@ -33,8 +33,8 @@ convert_biodata <- function(
     stat = "mean") {
 
     if (!stat %in% c("mean", "median", "quantile")) {
-          stop("Please select an option between 'mean', 'median' or 'quantile'")
-      }
+        stop("Please select an option between 'mean', 'median' or 'quantile'")
+    }
 
     # Merge dataset
     data <- merge(cell_type, gene, by = 1)
@@ -52,11 +52,11 @@ convert_biodata <- function(
         data$high <- rep("")
         for (i in seq_along(data[, 1])) {
             if (data[i, select] < cutoff[1]) {
-                  data[i, "high"] <- names(cutoff)[1]
-              }
+                data[i, "high"] <- names(cutoff)[1]
+            }
             if (data[i, select] > cutoff[2]) {
-                  data[i, "high"] <- names(cutoff)[2]
-              }
+                data[i, "high"] <- names(cutoff)[2]
+            }
         }
         cutted <- data[data$high != "", ]
     }
