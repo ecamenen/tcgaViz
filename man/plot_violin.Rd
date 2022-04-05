@@ -4,7 +4,14 @@
 \alias{plot_violin}
 \title{Violin plot expression}
 \usage{
-plot_violin(data, gene = "Gene X", type = "violin")
+plot_violin(
+  data,
+  gene = "Gene X",
+  type = "violin",
+  title = NULL,
+  label = "value",
+  ...
+)
 }
 \arguments{
 \item{data}{dataframe containing columns named high (logical),
@@ -14,6 +21,12 @@ cell_type (factor) and value (float).}
 
 \item{type}{character for the type of plot to be chosen among "violin"
 or "boxplot".}
+
+\item{title}{character for the title of the plot.}
+
+\item{label}{character for the title of the x-axis.}
+
+\item{...}{arguments to pass to ggplot::theme().}
 }
 \value{
 ggrub object for a violon plot.

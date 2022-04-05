@@ -52,4 +52,6 @@ p <- plot_violin(sub_cutted_melt, gene_x)
 
 # Add corrected Wilcoxon tests
 stat <- calculate_pvalue(sub_cutted_melt)
+options(warn = -1)
 p + ggpubr::stat_pvalue_manual(stat, label = "p.adj.signif")
+options(warn = 0)
