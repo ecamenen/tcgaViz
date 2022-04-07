@@ -40,7 +40,7 @@ app_ui <- function(request) {
                         id = "navbar",
                         tabPanel(
                             "Violin plot",
-                            plotOutput("violin_plot", height = 700)
+                            plotlyOutput("violin_plot", height = 700)
                         )
                     )
                 )

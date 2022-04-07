@@ -129,7 +129,7 @@ app_server <- function(input, output, session) {
         }
     )
 
-    output$violin_plot <- renderPlot({
+    output$violin_plot <- renderPlotly({
         message_dev("Launching plot")
         req(vars$dataset)
         req(!is(vars$cells, "list"))
@@ -150,7 +150,8 @@ app_server <- function(input, output, session) {
         )
 
         print_dev("Plot in progress...")
-        p + stat_pvalue_manual(stats, label = "p.adj.signif")
+        p <- p + stat_pvalue_manual(stats, label = "p.adj.signif")
+        plot_dynamic(p)
     })
 
     exportTestValues(vars2 = vars)

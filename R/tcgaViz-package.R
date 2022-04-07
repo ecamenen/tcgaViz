@@ -2,7 +2,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import ggplot2 golem rlang rstatix shiny shinyFeedback
+#' @import golem plotly rlang rstatix shiny shinyFeedback
 #' @importFrom config get
 #' @importFrom data.table transpose
 #' @importFrom dplyr mutate
@@ -12,6 +12,7 @@
 #' @importFrom reshape2 melt
 #' @importFrom methods is
 #' @importFrom stats quantile
+#' @rawNamespace import(ggplot2, except = last_plot)
 #' @examples
 #' # Load two data sets with the same cancer type and
 #' # TCGA sample identifiers.

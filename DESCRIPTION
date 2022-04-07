@@ -1,6 +1,5 @@
 Package: tcgaViz
-Title: Vizualisation tool for The Cancer Genome Atlas Program
-    (TCGA)
+Title: Vizualisation tool for The Cancer Genome Atlas Program (TCGA)
 Version: 0.3.0
 Authors@R: 
     c(person(given = "Etienne",
@@ -13,9 +12,9 @@ Authors@R:
       person(given = "Nicolas",
              family = "Aubert",
              role = "aut"))
-Description: A vizualisation tool to depict proportions of
-    immune cells in any tumor relative to the average expression of any
-    gene (or signature).
+Description: A vizualisation tool to depict proportions of immune cells in
+    any tumor relative to the average expression of any gene (or
+    signature).
 License: GPL-3
 Depends: 
     R (>= 2.10)
@@ -28,6 +27,7 @@ Imports:
     golem,
     methods,
     openxlsx,
+    plotly,
     readr,
     reshape2,
     rlang,
@@ -44,10 +44,9 @@ Suggests:
     testthat
 VignetteBuilder: 
     knitr
-biocViews: Visualization, ImmunoOncology, Genetics,
-    GeneExpression
+biocViews: Visualization, ImmunoOncology, Genetics, GeneExpression
 Encoding: UTF-8
 Language: en-US
+LazyData: false
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-LazyData: false
