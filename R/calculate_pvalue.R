@@ -38,7 +38,8 @@ calculate_pvalue <- function(
             )
         )
     }
-    data %>%
+    stopifnot(is(data, "biodata"))
+    stats <- data %>%
         remove_similar_type_levels() %>%
         group_by(cell_type) %>%
         base::get(method_test)(value ~ high) %>%
@@ -46,4 +47,7 @@ calculate_pvalue <- function(
         add_significance() %>%
         subset(p.adj < p_threshold) %>%
         add_xy_position(x = "high")
+
+    class(stats) <- c("biostats", class(stats))
+    return(stats)
 }
