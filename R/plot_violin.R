@@ -27,7 +27,7 @@
 #'     df,
 #'     type = "boxplot",
 #'     dots = TRUE,
-#'     xlab = "Level of cell type differentiation from the Cibersort algorithm
+#'     xlab = "Level of cell type differentiation from the Cibersort_ABS algorithm
 #'     based on the 'A' gene expression.",
 #'     ylab = "Percent of relative abundance",
 #'     title = "Random distribution from TCGA database",
