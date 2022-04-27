@@ -12,7 +12,7 @@
 #' @examples
 #' data(tcga)
 #' (convert2biodata(
-#'     algorithm = "Cibersort",
+#'     algorithm = "Cibersort_ABS",
 #'     disease = "breast invasive carcinoma",
 #'     tissue = "Primary Tumor",
 #'     gene_x = "A"
