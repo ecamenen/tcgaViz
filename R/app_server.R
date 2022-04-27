@@ -34,9 +34,11 @@ app_server <- function(input, output, session) {
         inputId = "disease",
         choices = c(
             # "All",
-            sort(unique(tcga_raw$phenotypes$`_primary_disease`))
+            str_to_title(
+                sort(unique(tcga$phenotypes$`_primary_disease`))
+                )
         ),
-        selected = "breast invasive carcinoma"
+        selected = "Breast Invasive Carcinoma"
     )
 
     freezeReactiveValue(input, "tissue")
@@ -50,7 +52,6 @@ app_server <- function(input, output, session) {
         selected = "Primary Tumor"
     )
 
-    init <- Sys.time()
     print_dev("Gene loading in progress")
     updateSelectizeInput(
         inputId = "gene_x",
@@ -58,7 +59,6 @@ app_server <- function(input, output, session) {
         server = TRUE,
         selected = ""
     )
-    print_dev(Sys.time() - init)
 
     observeEvent(input$algorithm, {
         print_dev("Cell formatting")
@@ -100,7 +100,6 @@ app_server <- function(input, output, session) {
     )
 
     observeEvent(input$gene_x, {
-        init <- Sys.time()
         print_dev(c("Gene formatting", input$gene_x))
         req(input$gene_x)
         req(input$gene_x != "")
@@ -109,7 +108,6 @@ app_server <- function(input, output, session) {
             col,
             input$gene_x
         )
-        print_dev(Sys.time() - init)
     })
 
     # Merge datasets
@@ -119,14 +117,12 @@ app_server <- function(input, output, session) {
             message_dev("Launching merge")
             req(ncol(vars$phenotypes) == 1)
             req(ncol(vars$genes) == 2)
-            init <- Sys.time()
             print_dev("Merge in progress...")
             vars$dataset <- merge(
                 subset(vars$phenotypes, select = "sample"),
                 vars$genes,
                 by = 1
             )
-            print_dev(Sys.time() - init)
         }
     )
 
