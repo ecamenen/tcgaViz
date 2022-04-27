@@ -161,16 +161,16 @@ app_server <- function(input, output, session) {
         )
     })
 
-    output$violin_plot <- renderPlot({
+    output$distribution_plot <- renderPlot({
         req(vars$bioplot)
         options(warn = -1)
         show_notif(plot(vars$bioplot), "Plot in progress...")
         options(warn = 0)
     })
 
-        print_dev("Plot in progress...")
-        p <- p + stat_pvalue_manual(stats, label = "p.adj.signif")
-        plot_dynamic(p)
+    output$stats_summary <- DT::renderDataTable({
+        req(vars$biostats)
+        summary.biostats(vars$biostats)
     })
 
     exportTestValues(vars2 = vars)

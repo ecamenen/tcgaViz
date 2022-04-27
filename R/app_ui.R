@@ -16,7 +16,7 @@ app_ui <- function(request) {
                         tabPanel(
                             "Data",
                             selectInput("algorithm", "Algorithm", NULL),
-                            selectInput("disease", "Disease", NULL),
+                            selectInput("disease", "Cancer", NULL),
                             selectInput("tissue", "Tissue", NULL),
                             selectizeInput(
                                 "gene_x",
@@ -65,8 +65,12 @@ app_ui <- function(request) {
                         type = "tabs",
                         id = "navbar",
                         tabPanel(
-                            "Violin plot",
-                            plotlyOutput("violin_plot", height = 700)
+                            "Distribution plot",
+                            plotOutput("distribution_plot", height = 700)
+                        ),
+                        tabPanel(
+                            "Statistic summary",
+                            DT::dataTableOutput("stats_summary")
                         )
                     )
                 )
