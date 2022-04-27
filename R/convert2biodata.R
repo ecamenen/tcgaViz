@@ -5,13 +5,22 @@
 #' 'Xcell64'.
 #' @param gene_x character for the gene selected in the differential analysis
 #' (see the list in extdata/gene_names.csv).
-#' @param path character for the path name of the `tcga_raw` dataset.
+#' @param path character for the path name of the `tcga` dataset.
 #'
 #' @export
+#'
+#' @examples
+#' data(tcga)
+#' (convert2biodata(
+#'     algorithm = "Cibersort",
+#'     disease = "breast invasive carcinoma",
+#'     tissue = "Primary Tumor",
+#'     gene_x = "A"
+#' ))
 convert2biodata <- function(algorithm, disease, tissue, gene_x, path = ".") {
-    if (!exists("tcga_raw")) {
+    if (!exists("tcga")) {
         message("TCGA loading in progess...")
-        file <- file.path(path, "tcga_raw.rda")
+        file <- file.path(path, "tcga.rda")
         if (file.exists(file)) {
             load(file)
         } else {
@@ -20,10 +29,10 @@ convert2biodata <- function(algorithm, disease, tissue, gene_x, path = ".") {
     }
 
     # Import the phenotypes file
-    tcga_pop <- tcga_raw$cells[[algorithm]]
+    tcga_pop <- tcga$cells[[algorithm]]
 
     # Import the tumor type file
-    diseases <- tcga_raw$phenotypes
+    diseases <- tcga$phenotypes
     if (!is.null(disease)) {
         diseases <- diseases[
             diseases$`_primary_disease` == tolower(disease),
@@ -43,7 +52,7 @@ convert2biodata <- function(algorithm, disease, tissue, gene_x, path = ".") {
     }
 
     # Import the gene file
-    gene <- tcga_raw$genes[, c(1, which(colnames(tcga_raw$genes) == gene_x))]
+    gene <- tcga$genes[, c(1, which(colnames(tcga$genes) == gene_x))]
 
     # Merge datasets
     dataset <- merge(tumor_type, gene, by = 1)
