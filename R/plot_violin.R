@@ -5,13 +5,13 @@
 #'
 #' @param data dataframe containing columns named high (logical),
 #' cell_type (factor) and value (float).
-#' @param gene character for the name of the gene plotted in the title.
 #' @param type character for the type of plot to be chosen among "violin"
 #' or "boxplot".
 #' @param dots boolean to add all data to the graph as points.
 #' @param title character for the title of the plot.
-#' @param label character for the title of the x-axis.
-#' @param ... arguments to pass to ggplot::theme().
+#' @param xlab character for the name of the X axis label.
+#' @param ylab character for the name of the X axis label.
+#' @param ... arguments to pass to [ggplot2::theme()].
 #'
 #' @return ggrub object for a violon plot.
 #' @export
@@ -25,37 +25,42 @@
 #' p + stat_pvalue_manual(stats, label = "p.adj.signif")
 plot_violin <- function(
     data,
-    gene = "Gene X",
     type = "violin",
     dots = FALSE,
     title = NULL,
-    label = "value",
-    ...) {
+    xlab = NULL,
+    ylab = NULL,
+    ...
+) {
     if (!type %in% c("violin", "boxplot")) {
         stop("Please select an option between 'violin' or 'boxplot'")
     }
 
-    func <- base::get(paste0("gg", type))(
+    func <- quote(base::get(paste0("gg", type))(
         data = data,
         x = "high",
         y = "value",
         facet.by = "cell_type",
         outlier.shape = NA,
-        draw_quantiles = c(0.25, 0.5, 0.75),
         color = "cell_type"
-    )
+    ))
 
-    options(warn = -1)
-    pop <- eval(quote(func)) +
+    if (type == "violin") {
+        func$draw_quantiles <- c(0.25, 0.5, 0.75)
+    }
+    if (is.null(ylab)) {
+        ylab <- ""
+    }
+
+    pop <- eval(func) +
         scale_x_discrete(
-            name = paste(gene, "level"),
+            name = xlab,
             labels = c(`FALSE` = "Low", `TRUE` = "High")
         ) +
-        scale_y_log10() +
+        scale_y_log10(name = ylab) +
         labs(title = title) +
-        ylab(label) +
         theme(...)
-    options(warn = 0)
+
     if (dots) {
         pop <- pop + geom_dotplot(
             binaxis = "y",
