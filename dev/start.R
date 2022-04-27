@@ -27,6 +27,7 @@ use_description(
 use_readme_rmd()
 use_cran_badge()
 use_package_doc()
+use_pipe()
 # promptPackage(name)
 for (f in c(".idea/", "dev/", "inst/extdata/")) {
     use_git_ignore(f)

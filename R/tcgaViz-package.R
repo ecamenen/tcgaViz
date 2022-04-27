@@ -2,16 +2,18 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import golem plotly rlang rstatix shiny shinyFeedback
+#' @import golem plotly rlang rstatix shiny shinyFeedback stringr tidyr
+#' tidyselect
 #' @importFrom config get
 #' @importFrom data.table transpose
-#' @importFrom dplyr mutate
-#' @importFrom ggpubr ggviolin ggpar stat_pvalue_manual
+#' @importFrom dplyr mutate relocate
+#' @importFrom ggpubr ggviolin ggboxplot ggpar stat_pvalue_manual
 #' @importFrom openxlsx read.xlsx
 #' @importFrom readr read_delim
 #' @importFrom reshape2 melt
 #' @importFrom methods is
-#' @importFrom stats quantile
+#' @importFrom stats quantile p.adjust.methods sd
+#' @importFrom magrittr %>%
 #' @rawNamespace import(ggplot2, except = last_plot)
 #' @examples
 #' # Load two data sets with the same cancer type and

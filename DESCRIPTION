@@ -24,6 +24,7 @@ Imports:
     dplyr,
     ggplot2,
     ggpubr,
+    magrittr,
     golem,
     methods,
     openxlsx,
@@ -34,7 +35,10 @@ Imports:
     rstatix,
     shiny,
     shinyFeedback,
-    stats
+    stats,
+    stringr,
+    tidyr,
+    tidyselect
 Suggests:
     BiocCheck,
     covr,
