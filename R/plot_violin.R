@@ -66,6 +66,13 @@ plot_violin <- function(
     if (type == "violin") {
         func$draw_quantiles <- c(0.25, 0.5, 0.75)
     }
+    if (is.null(title)) {
+        if (is.null(stats)) {
+            title <- description.biodata(data)
+        } else {
+            title <- description.biostats(stats)
+        }
+    }
     if (is.null(xlab)) {
         xlab <- paste(
             "Level of cell type differentiation based on the",
