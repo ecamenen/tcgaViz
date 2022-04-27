@@ -8,6 +8,7 @@
 #' @param gene character for the name of the gene plotted in the title.
 #' @param type character for the type of plot to be chosen among "violin"
 #' or "boxplot".
+#' @param dots boolean to add all data to the graph as points.
 #' @param title character for the title of the plot.
 #' @param label character for the title of the x-axis.
 #' @param ... arguments to pass to ggplot::theme().
@@ -26,6 +27,7 @@ plot_violin <- function(
     data,
     gene = "Gene X",
     type = "violin",
+    dots = FALSE,
     title = NULL,
     label = "value",
     ...) {
@@ -54,5 +56,17 @@ plot_violin <- function(
         ylab(label) +
         theme(...)
     options(warn = 0)
+    if (dots) {
+        pop <- pop + geom_dotplot(
+            binaxis = "y",
+            stackdir = "center",
+            alpha = .1,
+            color = "gray",
+            binwidth = .1,
+            drop = TRUE,
+            width = .5
+        )
+    }
+
     ggpar(pop, legend = "none")
 }
