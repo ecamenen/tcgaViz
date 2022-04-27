@@ -68,7 +68,10 @@ convert_biodata <- function(
         cutoff <- eval(quote(func))
 
         # Add a column for a higher level than the selected gene
-        cutted <- mutate(data, high = data[, select] > cutoff)
+        cutted <- mutate(
+            data,
+            high = ifelse(data[, select] > cutoff, "High", "Low")
+        )
     } else {
         cutoff <- quantile(as.numeric(data[, select]), na.rm = TRUE)[c(2, 4)]
 

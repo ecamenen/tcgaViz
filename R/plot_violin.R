@@ -90,10 +90,7 @@ plot_violin <- function(
     }
 
     pop <- eval(func) +
-        scale_x_discrete(
-            name = xlab,
-            labels = c(`FALSE` = "Low", `TRUE` = "High")
-        ) +
+        scale_x_discrete(name = xlab) +
         scale_y_log10(name = ylab) +
         labs(title = title) +
         theme(...)
