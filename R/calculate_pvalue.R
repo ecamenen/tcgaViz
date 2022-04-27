@@ -17,7 +17,12 @@
 #'
 #' @examples
 #' data(tcga)
-#' df <- convert_biodata(tcga$genes, tcga$cells, "A")
+#' df <- (convert2biodata(
+#'     algorithm = "Cibersort_ABS",
+#'     disease = "breast invasive carcinoma",
+#'     tissue = "Primary Tumor",
+#'     gene_x = "A"
+#' ))
 #' calculate_pvalue(df)
 #' calculate_pvalue(df, method_test = "t_test", method_adjust = "bonferroni")
 calculate_pvalue <- function(

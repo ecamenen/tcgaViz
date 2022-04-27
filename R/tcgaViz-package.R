@@ -20,9 +20,13 @@
 #' data(tcga)
 #' # Violin plot of cell subtypes and significance of a Wilcoxon adjusted test
 #' # according to the expression level (high or low) of a selected gene.
-#' df <- convert_biodata(tcga$genes, tcga$cells, select = "A")
-#' p <- plot_violin(df, gene = "gene A")
+#' df <- (convert2biodata(
+#'     algorithm = "Cibersort_ABS",
+#'     disease = "breast invasive carcinoma",
+#'     tissue = "Primary Tumor",
+#'     gene_x = "A"
+#' ))
 #' stats <- calculate_pvalue(df)
-#' p + stat_pvalue_manual(stats, label = "p.adj.signif")
+#' plot_violin(df, stats = stats)
 ## usethis namespace: end
 NULL

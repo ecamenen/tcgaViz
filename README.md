@@ -70,7 +70,7 @@ head(tcga$genes)
 #> 5 2.57149390410632
 #> 6 7.47873045271263
 #> 7 5.85510938894004
-head(tcga$cells)
+head(tcga$cells$Cibersort_ABS)
 #>   sample study        X1        X2        X3        X4        X5
 #> 1 TCGA.1  BRCA 0.1477789 0.1488009 0.1038226 0.2023672 0.1634447
 #> 2 TCGA.2  BRCA 0.1792274 0.2159358 0.1804520 0.2234023 0.1422903
@@ -86,10 +86,14 @@ head(tcga$cells)
 expression level \[high or low\] of a selected gene)
 
 ``` r
-df <- convert_biodata(tcga$genes, tcga$cells, select = "A")
-p <- plot_violin(df, gene = "gene A")
+df <- (convert2biodata(
+  algorithm = "Cibersort_ABS",
+  disease = "breast invasive carcinoma",
+  tissue = "Primary Tumor",
+  gene_x = "A"
+))
 stats <- calculate_pvalue(df)
-p + stat_pvalue_manual(stats, label = "p.adj.signif")
+plot_violin(df, stats = stats)
 ```
 
 <img src="man/figures/README-plot-1.png" width="100%" />

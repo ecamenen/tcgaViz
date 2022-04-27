@@ -20,7 +20,12 @@
 #' @examples
 #' library("ggplot2")
 #' data(tcga)
-#' df <- convert_biodata(tcga$genes, tcga$cells, "A")
+#' df <- (convert2biodata(
+#'     algorithm = "Cibersort_ABS",
+#'     disease = "breast invasive carcinoma",
+#'     tissue = "Primary Tumor",
+#'     gene_x = "A"
+#' ))
 #' plot_violin(df)
 #' stats <- calculate_pvalue(df)
 #' plot_violin(
