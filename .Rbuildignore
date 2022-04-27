@@ -18,4 +18,4 @@ $run_dev.*
 ^.cache$
 ^bin$
 ^rsconnect$
-^.*tcga_raw\.rda$
+^.*extdata/tcga\.rda$
