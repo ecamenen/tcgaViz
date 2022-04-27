@@ -29,10 +29,36 @@ app_ui <- function(request) {
                                     placeholder = "Select a gene",
                                     mode = "multi"
                                 )
+                            )),
+                        tabPanel(
+                            "Statistics",
+                            selectInput(
+                                "test",
+                                "Test",
+                                choices = c(
+                                    "Student's t-test" = "t_test",
+                                    "Wilcoxon-Mann-Whitney test" = "wilcox_test"
+                                )
                             ),
-                            selectInput("stat", "Statistics", choices = c("mean", "median", "quantile"))
-                        )
-                    )
+                            selectInput(
+                                "correction",
+                                "Multiple correction",
+                                choices = sort(p.adjust.methods)
+                            ),
+                            selectInput(
+                                "stat",
+                                "Cut-off",
+                                choices = c("mean", "median", "quantile")
+                            )),
+                        tabPanel(
+                            "Plot",
+                            radioButtons(
+                                "type",
+                                "Plot",
+                                choices = c("violin", "boxplot")
+                            ),
+                            checkboxInput("dots", "Add dots", FALSE)
+                        ))
                 ),
                 mainPanel(
                     tabsetPanel(

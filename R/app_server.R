@@ -17,7 +17,10 @@ app_server <- function(input, output, session) {
         phenotypes_temp = tcga$phenotypes,
         phenotypes = tcga$phenotypes,
         genes = tcga$genes,
-        dataset = NULL
+        dataset = NULL,
+        biodata = NULL,
+        biostats = NULL,
+        bioplot = NULL
     )
 
     freezeReactiveValue(input, "algorithm")
@@ -126,25 +129,44 @@ app_server <- function(input, output, session) {
         }
     )
 
-    output$violin_plot <- renderPlotly({
-        message_dev("Launching plot")
+    observeEvent(c(vars$dataset, vars$cells, input$gene_x, input$stat, input$disease, input$tissue), {
         req(vars$dataset)
         req(!is(vars$cells, "list"))
-        req(input$disease)
         req(input$stat)
         print_dev("Data formatting in progress...")
-        # Data formatting
-        sub_cutted_melt <- isolate(
-            convert_biodata(vars$dataset, vars$cells, input$gene_x, input$stat)
+        vars$biodata <- isolate(
+            convert_biodata(vars$dataset, vars$cells, input$gene_x, input$stat, input$disease, input$tissue)
         )
-        print_dev("Whatever in progress...")
-        # Plot the cell subtypes according to the gene expression level
-        p <- isolate(plot_violin(sub_cutted_melt, input$gene_x))
-        # Add corrected Wilcoxon tests
-        stats <- show_notif(
-            calculate_pvalue(sub_cutted_melt),
-            "Statistic calculation in progres..."
+    })
+
+    observeEvent(c(vars$biodata, input$test, input$correction), {
+        req(vars$biodata)
+        vars$biostats <- show_notif(
+            calculate_pvalue(
+                vars$biodata,
+                method_test = input$test,
+                method_adjust = input$correction
+            ),
+            "Statistic calculation in progress..."
         )
+    })
+
+    observeEvent(c(vars$biodata, input$type, input$dots), {
+        req(vars$biostats)
+        vars$bioplot <- plot_violin(
+            vars$biodata,
+            input$type,
+            input$dots,
+            stats = vars$biostats
+        )
+    })
+
+    output$violin_plot <- renderPlot({
+        req(vars$bioplot)
+        options(warn = -1)
+        show_notif(plot(vars$bioplot), "Plot in progress...")
+        options(warn = 0)
+    })
 
         print_dev("Plot in progress...")
         p <- p + stat_pvalue_manual(stats, label = "p.adj.signif")
