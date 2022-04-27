@@ -27,15 +27,19 @@ Cancer Genome Atlas (TCGA) database.
 the TCGA database containing sample ID, sample type ID, sample type and
 primary disease.
 \item \code{cells}: Random data based on the distribution of abundance
-estimates of certain cell types using the Cibersort algorithm.
+estimates of certain cell types using the Cibersort_ABS algorithm.
 }
 }
 \examples{
 library(ggpubr)
 data(tcga)
-df <- convert_biodata(tcga$genes, tcga$cells, select = "A")
-p <- plot_violin(df, gene = "gene A")
+df <- (convert2biodata(
+algorithm = "Cibersort_ABS",
+disease = "breast invasive carcinoma",
+tissue = "Primary Tumor",
+gene_x = "A"
+))
 stats <- calculate_pvalue(df)
-p + stat_pvalue_manual(stats, label = "p.adj.signif")
+plot_violin(df, stats = stats)
 }
 \keyword{datasets}

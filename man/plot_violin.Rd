@@ -6,40 +6,60 @@
 \usage{
 plot_violin(
   data,
-  gene = "Gene X",
   type = "violin",
+  dots = FALSE,
   title = NULL,
-  label = "value",
+  xlab = NULL,
+  ylab = NULL,
+  stats = NULL,
   ...
 )
 }
 \arguments{
-\item{data}{dataframe containing columns named high (logical),
-cell_type (factor) and value (float).}
-
-\item{gene}{character for the name of the gene plotted in the title.}
+\item{data}{object from \code{\link[=convert2biodata]{convert2biodata()}} for a dataframe containing
+columns named high (logical), cell_type (factor) and value (float).}
 
 \item{type}{character for the type of plot to be chosen among "violin"
 or "boxplot".}
 
+\item{dots}{boolean to add all data to the graph as points.}
+
 \item{title}{character for the title of the plot.}
 
-\item{label}{character for the title of the x-axis.}
+\item{xlab}{character for the name of the X axis label.}
 
-\item{...}{arguments to pass to ggplot::theme().}
-}
-\value{
-ggrub object for a violon plot.
+\item{ylab}{character for the name of the X axis label.}
+
+\item{stats}{object from \code{\link[=calculate_pvalue]{calculate_pvalue()}}.}
+
+\item{...}{arguments to pass to \code{\link[ggplot2:theme]{ggplot2::theme()}}.}
 }
 \description{
 Violin plot of cell subtypes according to the expression level (high or
 low) of a selected gene.
 }
 \examples{
-library(ggpubr)
+library("ggplot2")
 data(tcga)
-df <- convert_biodata(tcga$genes, tcga$cells, "A")
-p <- plot_violin(df)
+df <- (convert2biodata(
+    algorithm = "Cibersort_ABS",
+    disease = "breast invasive carcinoma",
+    tissue = "Primary Tumor",
+    gene_x = "A"
+))
+plot_violin(df)
 stats <- calculate_pvalue(df)
-p + stat_pvalue_manual(stats, label = "p.adj.signif")
+plot_violin(
+    df,
+    type = "boxplot",
+    dots = TRUE,
+    xlab = "Level of cell type differentiation from the Cibersort_ABS algorithm
+    based on the 'A' gene expression.",
+    ylab = "Percent of relative abundance",
+    title = "Random distribution from TCGA database",
+    stats = stats,
+    axis.text.y = element_text(size = 8),
+    axis.title = element_text(face = "bold.italic"),
+    plot.title =  element_text(face = "bold", hjust = 0.5)
+)
 }

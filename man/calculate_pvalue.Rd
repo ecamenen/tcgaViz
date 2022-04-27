@@ -4,11 +4,22 @@
 \alias{calculate_pvalue}
 \title{Corrected Wilcoxon tests}
 \usage{
-calculate_pvalue(data, p_threshold = 0.05)
+calculate_pvalue(
+  data,
+  method_test = "wilcox_test",
+  method_adjust = "BH",
+  p_threshold = 0.05
+)
 }
 \arguments{
-\item{data}{dataframe containing columns named high (logical),
-cell_type (factor) and value (float).}
+\item{data}{object from \code{\link[=convert2biodata]{convert2biodata()}} for a dataframe containing
+columns named high (logical), cell_type (factor) and value (float).}
+
+\item{method_test}{character for the choice of the statistical test among
+'t_test' or 'wilcox_test'.}
+
+\item{method_adjust}{character for the choice of the multiple correction test
+among 'BH', 'bonferroni', 'BY', 'fdr', 'hochberg', 'holm', 'hommel', 'none'}
 
 \item{p_threshold}{float for the significativity threshold of the P-value.}
 }
@@ -18,11 +29,17 @@ P-values, corrections and other statistics in the column.
 }
 \description{
 Displays stars for each cell type corresponding to the significance level
-of Wilcoxon tests between expression levels (high or low) with
-Benjamini-Hochberg multiple correction.
+of two mean comparison tests between expression levels (high or low) with
+multiple correction.
 }
 \examples{
 data(tcga)
-df <- convert_biodata(tcga$genes, tcga$cells, "A")
-stats <- calculate_pvalue(df)
+df <- (convert2biodata(
+    algorithm = "Cibersort_ABS",
+    disease = "breast invasive carcinoma",
+    tissue = "Primary Tumor",
+    gene_x = "A"
+))
+calculate_pvalue(df)
+calculate_pvalue(df, method_test = "t_test", method_adjust = "bonferroni")
 }
