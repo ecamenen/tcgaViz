@@ -8,15 +8,15 @@ app_server <- function(input, output, session) {
     ########## Dataset loading ##########
     path <- file.path(get_golem_wd(), "inst", "extdata")
     show_notif(
-        load(file.path(path, "tcga_raw.rda")),
-        "Data loading in progres..."
+        load(file.path(path, "tcga.rda")),
+        "Data loading in progress..."
     )
 
     vars <- reactiveValues(
-        cells = tcga_raw$cells,
-        phenotypes_temp = tcga_raw$phenotypes,
-        phenotypes = tcga_raw$phenotypes,
-        genes = tcga_raw$genes,
+        cells = tcga$cells,
+        phenotypes_temp = tcga$phenotypes,
+        phenotypes = tcga$phenotypes,
+        genes = tcga$genes,
         dataset = NULL
     )
 
@@ -24,7 +24,8 @@ app_server <- function(input, output, session) {
     print_dev("Set cells choices")
     updateSelectInput(
         inputId = "algorithm",
-        choices = sort(names(tcga_raw$cells))
+        choices = sort(names(tcga$cells)),
+        selected = "Cibersort_ABS"
     )
 
     freezeReactiveValue(input, "disease")
@@ -44,7 +45,7 @@ app_server <- function(input, output, session) {
         inputId = "tissue",
         choices = c(
             # "All",
-            sort(unique(tcga_raw$phenotypes$sample_type))
+            sort(unique(tcga$phenotypes$sample_type))
         ),
         selected = "Primary Tumor"
     )
@@ -53,7 +54,7 @@ app_server <- function(input, output, session) {
     print_dev("Gene loading in progress")
     updateSelectizeInput(
         inputId = "gene_x",
-        choices = colnames(tcga_raw$genes)[-1],
+        choices = colnames(tcga$genes)[-1],
         server = TRUE,
         selected = ""
     )
@@ -62,7 +63,7 @@ app_server <- function(input, output, session) {
     observeEvent(input$algorithm, {
         print_dev("Cell formatting")
         req(input$algorithm != "")
-        vars$cells <- tcga_raw$cells[[input$algorithm]]
+        vars$cells <- tcga$cells[[input$algorithm]]
     })
 
     observeEvent(input$disease, {
@@ -70,8 +71,8 @@ app_server <- function(input, output, session) {
         req(input$disease != "All")
         req(input$disease != "")
         print_dev(input$disease)
-        vars$phenotypes_temp <- tcga_raw$phenotypes[
-            tcga_raw$phenotypes$`_primary_disease` == input$disease,
+        vars$phenotypes_temp <- tcga$phenotypes[
+            tcga$phenotypes$`_primary_disease` == tolower(input$disease),
         ]
     })
 
@@ -104,7 +105,7 @@ app_server <- function(input, output, session) {
         req(input$gene_x)
         req(input$gene_x != "")
         vars$genes <- select(
-            tcga_raw$genes,
+            tcga$genes,
             col,
             input$gene_x
         )
