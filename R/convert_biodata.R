@@ -12,6 +12,19 @@
 #' @param select character for a column name in gene.
 #' @param stat character for the statistic to be chosen among "mean", "median"
 #' or "quantile".
+#' @param disease character for the type of TCGA cancer (see the list in
+#' extdata/disease_names.csv).
+#' @param tissue character for the type of TCGA tissue among :
+#' 'Additional - New Primary',
+#' 'Additional Metastatic',
+#' 'Metastatic',
+#' 'Primary Blood Derived Cancer - Peripheral Blood',
+#' 'Primary Tumor',
+#' 'Recurrent Tumor',
+#' 'Solid Tissue Normal'
+#' @details `disease` and `tissue` arguments should be displayed in the title
+#' of [plot_violin()] only if the `gene` argument does not already have them
+#' in its attributes.
 #'
 #' @return
 #' data frame with the following columns:
@@ -25,12 +38,15 @@
 #'
 #' @examples
 #' data(tcga)
-#' (df_formatted <- convert_biodata(tcga$genes, tcga$cells, "A"))
+#' (df_formatted <- convert_biodata(tcga$genes, tcga$cells$Cibersort, "A"))
 convert_biodata <- function(
     gene,
     cell_type,
     select = colnames(gene)[3],
-    stat = "mean") {
+    stat = "mean",
+    disease = NULL,
+    tissue = NULL
+) {
 
     if (!stat %in% c("mean", "median", "quantile")) {
         stop("Please select an option between 'mean', 'median' or 'quantile'")
@@ -38,6 +54,13 @@ convert_biodata <- function(
 
     # Merge dataset
     data <- merge(cell_type, gene, by = 1)
+
+    if (!is.null(attributes(gene)$disease) && is.null(disease)) {
+        disease <- attributes(gene)$disease
+    }
+    if (!is.null(attributes(gene)$tissue) && is.null(tissue)) {
+        tissue <- attributes(gene)$tissue
+    }
 
     # Calculation of the gene expression median
     if (stat != "quantile") {
@@ -69,9 +92,15 @@ convert_biodata <- function(
 
     # Get a 3-column table with the value associated with each cell type
     # and its gene expression level
-    sub_cutted_melt <- melt(cutted_melt, id.vars = "high")
+    sub_cutted_melt <- melt(cutted_melt, id.vars = "high") %>%
+        tibble()
     colnames(sub_cutted_melt)[2] <- "cell_type"
     sub_cutted_melt$value <- sub_cutted_melt$value + 1e-05
+
+    class(sub_cutted_melt) <- c("biodata", class(sub_cutted_melt))
+    attributes(sub_cutted_melt)$disease <- disease
+    attributes(sub_cutted_melt)$tissue <- tissue
+    attributes(sub_cutted_melt)$gene <- select
 
     return(sub_cutted_melt)
 }
