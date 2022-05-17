@@ -31,17 +31,17 @@ get_biostats <- function(x) {
         gene_levels <- levels(stats_temp$high)
     }
     stats_full <- stats_temp %>%
-    group_by(cell_type, high) %>%
-    summarise(avg = mean(value), sd = sd(value)) %>%
-    pivot_wider(
-        id_cols = cell_type,
-        names_from = high,
-        values_from = c("avg", "sd")
-    ) %>%
-    mutate(`High - Low` = avg_High - avg_Low) %>%
-    relocate(`High - Low`, .after = sd_Low) %>%
-    merge(stats) %>%
-    tibble()
+        group_by(cell_type, high) %>%
+        summarise(avg = mean(value), sd = sd(value)) %>%
+        pivot_wider(
+            id_cols = cell_type,
+            names_from = high,
+            values_from = c("avg", "sd")
+        ) %>%
+        mutate(`High - Low` = avg_High - avg_Low) %>%
+        relocate(`High - Low`, .after = sd_Low) %>%
+        merge(stats) %>%
+        tibble()
 
     colnames(stats_full) <- name_columns(gene_levels[1], gene_levels[2])
     return(stats_full)
