@@ -4,17 +4,17 @@
 #'
 #' @noRd
 show_message <- function(
-  f,
-  ui,
-  duration = NULL,
-  closeButton = TRUE,
-  type = "default"
+    f,
+    ui,
+    duration = NULL,
+    closeButton = TRUE,
+    type = "default"
 ) {
     id <- showNotification(
-      ui,
-      duration = duration,
-      closeButton = closeButton,
-      type = type
+        ui,
+        duration = duration,
+        closeButton = closeButton,
+        type = type
     )
     if (is.null(duration)) {
         on.exit(removeNotification(id), add = TRUE)
@@ -25,17 +25,20 @@ show_message <- function(
 show_notif <- function(f, duration = 5) {
     show_notif0 <- function(e, duration) {
         notif <- quote(
-          show_message({}, duration = duration)
+            show_message(
+                {},
+                duration = duration
+            )
         )
         notif$ui <- e$message
         notif$type <- class(e)[2]
         eval(notif)
     }
     tryCatch(
-      f,
-      error = function(e) show_notif0(e, duration),
-      warning = function(w) show_notif0(w, duration),
-      message = function(m) show_notif0(m, duration)
+        f,
+        error = function(e) show_notif0(e, duration),
+        warning = function(w) show_notif0(w, duration),
+        message = function(m) show_notif0(m, duration)
     )
 }
 
