@@ -41,26 +41,28 @@
 #'     axis.title = element_text(face = "bold.italic"),
 #'     plot.title =  element_text(face = "bold", hjust = 0.5)
 #' )
-plot_violin <- function(
-    data,
+plot_distribution <- function(
+    x,
+    stats = NULL,
     type = "violin",
     dots = FALSE,
     title = NULL,
     xlab = NULL,
     ylab = NULL,
-    stats = NULL,
     ...
 ) {
+    type <- paste(tolower(type))
     if (!type %in% c("violin", "boxplot")) {
         stop("Please select an option between 'violin' or 'boxplot'")
     }
-    stopifnot(is(data, "biodata"))
+    check_object(x, "biodata")
     if (!is.null(stats)) {
-        stopifnot(is(stats, "biostats"))
+        check_object(stats, "biostats")
     }
+    check_type(dots, "bool")
 
     func <- quote(base::get(paste0("gg", type))(
-        data = data,
+        data = x,
         x = "high",
         y = "value",
         facet.by = "cell_type",
@@ -73,7 +75,7 @@ plot_violin <- function(
     }
     if (is.null(title)) {
         if (is.null(stats)) {
-            title <- description.biodata(data)
+            title <- description.biodata(x)
         } else {
             title <- description.biostats(stats)
         }
@@ -81,13 +83,14 @@ plot_violin <- function(
     if (is.null(xlab)) {
         xlab <- paste(
             "Level of cell type differentiation based on the",
-            attributes(data)$gene,
-            "gene expression."
+            attributes(x)$gene,
+            "gene expression"
         )
     }
-    if (is.null(ylab)) {
-        ylab <- ""
-    }
+
+    title <- paste(title)
+    xlab <- paste(xlab)
+    ylab <- paste(ylab)
 
     pop <- eval(func) +
         scale_x_discrete(name = xlab) +

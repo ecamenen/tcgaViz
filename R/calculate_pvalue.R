@@ -26,14 +26,16 @@
 #' calculate_pvalue(df)
 #' calculate_pvalue(df, method_test = "t_test", method_adjust = "bonferroni")
 calculate_pvalue <- function(
-    data,
+    x,
     method_test = "wilcox_test",
     method_adjust = "BH",
     p_threshold = 0.05
 ) {
+    method_test <- paste(tolower(method_test))
     if (!method_test %in% c("t_test", "wilcox_test")) {
         stop("Please select an option between 't_test' or 'wilcox_test'")
     }
+    method_adjust <- paste(method_adjust)
     if (!method_adjust %in% p.adjust.methods) {
         stop(
             paste0(
@@ -43,8 +45,13 @@ calculate_pvalue <- function(
             )
         )
     }
-    stopifnot(is(data, "biodata"))
-    stats <- data %>%
+    check_object(x, "biodata")
+    check_type(p_threshold, "double")
+    if (p_threshold > 1 | p_threshold < 0) {
+        stop("p_threshold must be comprise between 1 and 0.")
+    }
+
+    stats <- x %>%
         remove_similar_type_levels() %>%
         group_by(cell_type) %>%
         base::get(method_test)(value ~ high) %>%

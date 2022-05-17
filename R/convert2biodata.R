@@ -29,8 +29,12 @@ convert2biodata <- function(algorithm, disease, tissue, gene_x, path = ".") {
     }
 
     # Import the phenotypes file
+    algorithm <- paste(algorithm)
+    check_list(algorithm, "algorithm")
     tcga_pop <- tcga$cells[[algorithm]]
 
+    disease <- paste(disease)
+    check_list(disease, "disease")
     # Import the tumor type file
     diseases <- tcga$phenotypes
     if (!is.null(disease)) {
@@ -39,6 +43,8 @@ convert2biodata <- function(algorithm, disease, tissue, gene_x, path = ".") {
         ]
     }
 
+    tissue <- paste(tissue)
+    check_list(tissue, "tissue")
     tumor_type <- diseases
     if (!is.null(tissue)) {
         tumor_type <- diseases[
@@ -52,6 +58,8 @@ convert2biodata <- function(algorithm, disease, tissue, gene_x, path = ".") {
     }
 
     # Import the gene file
+    gene_x <- paste(gene_x)
+    check_list(gene_x, "gene")
     gene <- tcga$genes[, c(1, which(colnames(tcga$genes) == gene_x))]
 
     # Merge datasets
