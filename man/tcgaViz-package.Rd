@@ -6,9 +6,9 @@
 \alias{tcgaViz-package}
 \title{tcgaViz: Vizualisation tool for The Cancer Genome Atlas Program (TCGA)}
 \description{
-A vizualisation tool to depict proportions of immune cells in
-    any tumor relative to the average expression of any gene (or
-    signature).
+Differential analysis of tumor tissue immune cell type abundance
+    based on RNASeq gene-level expression from The Cancer Genome Atlas (TCGA)
+    database.
 }
 \author{
 \strong{Maintainer}: Etienne Camenen \email{etienne.camenen@gmail.com}

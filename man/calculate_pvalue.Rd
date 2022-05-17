@@ -5,14 +5,14 @@
 \title{Corrected Wilcoxon tests}
 \usage{
 calculate_pvalue(
-  data,
+  x,
   method_test = "wilcox_test",
   method_adjust = "BH",
   p_threshold = 0.05
 )
 }
 \arguments{
-\item{data}{object from \code{\link[=convert2biodata]{convert2biodata()}} for a dataframe containing
+\item{x}{object from \code{\link[=convert2biodata]{convert2biodata()}} for a dataframe containing
 columns named high (logical), cell_type (factor) and value (float).}
 
 \item{method_test}{character for the choice of the statistical test among
@@ -34,12 +34,17 @@ multiple correction.
 }
 \examples{
 data(tcga)
-df <- (convert2biodata(
+(df <- convert2biodata(
     algorithm = "Cibersort_ABS",
     disease = "breast invasive carcinoma",
     tissue = "Primary Tumor",
-    gene_x = "A"
+    gene_x = "ICOS"
 ))
 calculate_pvalue(df)
-calculate_pvalue(df, method_test = "t_test", method_adjust = "bonferroni")
+calculate_pvalue(
+    df,
+    method_test = "t_test",
+    method_adjust = "bonferroni",
+    p_threshold = 0.01
+)
 }

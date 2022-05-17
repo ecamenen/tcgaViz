@@ -5,22 +5,22 @@
 \title{Format biological data}
 \usage{
 convert_biodata(
-  gene,
-  cell_type,
-  select = colnames(gene)[3],
+  genes,
+  cells,
+  select = colnames(genes)[3],
   stat = "mean",
   disease = NULL,
   tissue = NULL
 )
 }
 \arguments{
-\item{gene}{data frame whose first two columns contain identifiers and the
+\item{genes}{data frame whose first two columns contain identifiers and the
 others float values.}
 
-\item{cell_type}{data frame whose first two columns contain identifiers and
+\item{cells}{data frame whose first two columns contain identifiers and
 the others float values.}
 
-\item{select}{character for a column name in gene.}
+\item{select}{character for a column name in genes.}
 
 \item{stat}{character for the statistic to be chosen among "mean", "median"
 or "quantile".}
@@ -42,7 +42,7 @@ data frame with the following columns:
 \itemize{
 \item \code{high} (logical): the expression levels of a selected gene,
 TRUE for below or FALSE for above average.
-\item \code{cell_type} (factor): cell types.
+\item \code{cells} (factor): cell types.
 \item \code{value} (float): the abundance estimation of the cell types.
 }
 }
@@ -54,10 +54,10 @@ data frame: gene expression levels, cell types, and gene expression values.
 }
 \details{
 \code{disease} and \code{tissue} arguments should be displayed in the title
-of \code{\link[=plot_violin]{plot_violin()}} only if the \code{gene} argument does not already have them
-in its attributes.
+of \code{\link[=plot.biodata]{plot.biodata()}} only if the \code{genes} argument does not already have
+them in its attributes.
 }
 \examples{
 data(tcga)
-(df_formatted <- convert_biodata(tcga$genes, tcga$cells$Cibersort, "A"))
+(df_formatted <- convert_biodata(tcga$genes, tcga$cells$Cibersort, "ICOS"))
 }

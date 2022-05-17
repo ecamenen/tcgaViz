@@ -19,14 +19,14 @@
 #' @examples
 #' library(ggpubr)
 #' data(tcga)
-#' df <- (convert2biodata(
-#' algorithm = "Cibersort_ABS",
-#' disease = "breast invasive carcinoma",
-#' tissue = "Primary Tumor",
-#' gene_x = "A"
+#' (df <- convert2biodata(
+#'     algorithm = "Cibersort_ABS",
+#'     disease = "breast invasive carcinoma",
+#'     tissue = "Primary Tumor",
+#'     gene_x = "ICOS"
 #' ))
-#' stats <- calculate_pvalue(df)
-#' plot_violin(df, stats = stats)
+#' (stats <- calculate_pvalue(df))
+#' plot(df, stats = stats)
 #' @docType data
 #' @keywords datasets
 #' @name tcga

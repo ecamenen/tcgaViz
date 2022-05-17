@@ -4,7 +4,7 @@
 \alias{convert2biodata}
 \title{Format biological data}
 \usage{
-convert2biodata(algorithm, disease, tissue, gene_x, path = ".")
+convert2biodata(algorithm, disease, tissue, gene_x, stat = "mean", path = ".")
 }
 \arguments{
 \item{algorithm}{character for the algorithm used to estimate the
@@ -27,6 +27,9 @@ extdata/disease_names.csv).}
 \item{gene_x}{character for the gene selected in the differential analysis
 (see the list in extdata/gene_names.csv).}
 
+\item{stat}{character for the statistic to be chosen among "mean", "median"
+or "quantile".}
+
 \item{path}{character for the path name of the \code{tcga} dataset.}
 }
 \value{
@@ -34,7 +37,7 @@ data frame with the following columns:
 \itemize{
 \item \code{high} (logical): the expression levels of a selected gene,
 TRUE for below or FALSE for above average.
-\item \code{cell_type} (factor): cell types.
+\item \code{cells} (factor): cell types.
 \item \code{value} (float): the abundance estimation of the cell types.
 }
 }
@@ -50,6 +53,6 @@ data(tcga)
     algorithm = "Cibersort_ABS",
     disease = "breast invasive carcinoma",
     tissue = "Primary Tumor",
-    gene_x = "A"
+    gene_x = "ICOS"
 ))
 }
