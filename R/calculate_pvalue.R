@@ -4,7 +4,7 @@
 #' of two mean comparison tests between expression levels (high or low) with
 #' multiple correction.
 #'
-#' @inheritParams plot_violin
+#' @inheritParams plot.biodata
 #' @param method_test character for the choice of the statistical test among
 #' 't_test' or 'wilcox_test'.
 #' @param method_adjust character for the choice of the multiple correction test
@@ -17,14 +17,19 @@
 #'
 #' @examples
 #' data(tcga)
-#' df <- (convert2biodata(
+#' (df <- convert2biodata(
 #'     algorithm = "Cibersort_ABS",
 #'     disease = "breast invasive carcinoma",
 #'     tissue = "Primary Tumor",
-#'     gene_x = "A"
+#'     gene_x = "ICOS"
 #' ))
 #' calculate_pvalue(df)
-#' calculate_pvalue(df, method_test = "t_test", method_adjust = "bonferroni")
+#' calculate_pvalue(
+#'     df,
+#'     method_test = "t_test",
+#'     method_adjust = "bonferroni",
+#'     p_threshold = 0.01
+#' )
 calculate_pvalue <- function(
     x,
     method_test = "wilcox_test",

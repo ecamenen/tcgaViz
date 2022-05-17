@@ -1,45 +1,34 @@
-#' Violin plot expression
-#'
-#' Violin plot of cell subtypes according to the expression level (high or
-#' low) of a selected gene.
-#'
-#' @param data object from [convert2biodata()] for a dataframe containing
-#' columns named high (logical), cell_type (factor) and value (float).
-#' @param type character for the type of plot to be chosen among "violin"
-#' or "boxplot".
-#' @param dots boolean to add all data to the graph as points.
-#' @param title character for the title of the plot.
-#' @param xlab character for the name of the X axis label.
-#' @param ylab character for the name of the X axis label.
-#' @param stats object from [calculate_pvalue()].
-#' @param ... arguments to pass to [ggplot2::theme()].
-#'
-#' @return ggrub object for a violon plot.
-#' @export
-#'
+#' @inherit plot.biodata examples params description title
+#' @return ggpubr object for a distribution plot.
+#' @noRd
 #' @examples
 #' library("ggplot2")
 #' data(tcga)
-#' df <- (convert2biodata(
+#' (df <- convert2biodata(
 #'     algorithm = "Cibersort_ABS",
 #'     disease = "breast invasive carcinoma",
 #'     tissue = "Primary Tumor",
-#'     gene_x = "A"
+#'     gene_x = "ICOS"
 #' ))
-#' plot_violin(df)
+#' plot_distribution(df)
 #' stats <- calculate_pvalue(df)
-#' plot_violin(
+#' plot_distribution(
 #'     df,
+#'     stats = stats,
 #'     type = "boxplot",
 #'     dots = TRUE,
-#'     xlab = "Level of cell type differentiation from the Cibersort_ABS algorithm
-#'     based on the 'A' gene expression.",
-#'     ylab = "Percent of relative abundance",
-#'     title = "Random distribution from TCGA database",
-#'     stats = stats,
-#'     axis.text.y = element_text(size = 8),
-#'     axis.title = element_text(face = "bold.italic"),
-#'     plot.title =  element_text(face = "bold", hjust = 0.5)
+#'     xlab = "Expression level of the 'ICOS' gene by cell type",
+#'     ylab = "Percent of relative abundance\n(from the Cibersort_ABS algorithm)",
+#'     title = toupper("Differential analysis of immune cell type abundance
+#'     based on RNASeq gene-level expression from The Cancer Genome Atlas"),
+#'     axis.text.y = element_text(size = 8, hjust = 0.5),
+#'     plot.title = element_text(face = "bold", hjust = 0.5),
+#'     plot.subtitle = element_text(size = , face = "italic", hjust = 0.5)
+#' ) + labs(
+#'     subtitle = paste(
+#'         "Breast Invasive Carcinoma (BRCA; Primary Tumor):",
+#'         "Wilcoxon-Mann-Whitney test with Benjamini & Hochberg correction"
+#'     )
 #' )
 plot_distribution <- function(
     x,

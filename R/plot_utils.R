@@ -1,4 +1,52 @@
+#' Distribution plot
+#'
+#' Distribution plot of cell subtypes according to the expression level (high or
+#' low) of a selected gene.
+#'
+#' @inheritParams ggplot2::theme
+#' @param x object from [convert2biodata()] for a dataframe containing
+#' columns named high (logical), cell_type (factor) and value (float).
+#' @param type character for the type of plot to be chosen among "violin"
+#' or "boxplot".
+#' @param dots boolean to add all points to the graph.
+#' @param title character for the title of the plot.
+#' @param xlab character for the name of the X axis label.
+#' @param ylab character for the name of the Y axis label.
+#' @param stats object from [calculate_pvalue()].
+#' @param draw bolean to plot the graph.
+#' @param cex.lab numerical value giving the amount by which x and y plotting
+#' labels should be magnified relative to the default.
+#' @param cex.main numerical value giving the amount by which main plotting
+#' title should be magnified relative to the default.
+#' @param col character for the specification for the default plotting color.
+#' See section 'Color Specification' in [graphics::par()].
+#' @param ... arguments to pass to [ggplot2::theme()].
 #' @export
+#'
+#' @examples
+#' library("ggplot2")
+#' data(tcga)
+#' (df <- convert2biodata(
+#'     algorithm = "Cibersort_ABS",
+#'     disease = "breast invasive carcinoma",
+#'     tissue = "Primary Tumor",
+#'     gene_x = "ICOS"
+#' ))
+#' plot(df)
+#' stats <- calculate_pvalue(df)
+#' plot(
+#'     df,
+#'     stats = stats,
+#'     type = "boxplot",
+#'     dots = TRUE,
+#'     xlab = "Expression level of the 'ICOS' gene by cell type",
+#'     ylab = "Percent of relative abundance\n(from the Cibersort_ABS algorithm)",
+#'     title = "Differential analysis of tumor tissue immune cell type abundance
+#'     based on RNASeq gene-level expression from The Cancer Genome Atlas
+#'     (TCGA) database",
+#'     axis.text.y = element_text(size = 8, hjust = 0.5),
+#'     plot.title =  element_text(face = "bold", hjust = 0.5)
+#' )
 plot.biodata <- function(
     x,
     type = "violin",

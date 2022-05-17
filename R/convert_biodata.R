@@ -5,11 +5,11 @@
 #' two categories (below or above average) and formats into a 3-column
 #' data frame: gene expression levels, cell types, and gene expression values.
 #'
-#' @param gene data frame whose first two columns contain identifiers and the
+#' @param genes data frame whose first two columns contain identifiers and the
 #' others float values.
-#' @param cell_type data frame whose first two columns contain identifiers and
+#' @param cells data frame whose first two columns contain identifiers and
 #' the others float values.
-#' @param select character for a column name in gene.
+#' @param select character for a column name in genes.
 #' @param stat character for the statistic to be chosen among "mean", "median"
 #' or "quantile".
 #' @param disease character for the type of TCGA cancer (see the list in
@@ -23,22 +23,22 @@
 #' 'Recurrent Tumor',
 #' 'Solid Tissue Normal'
 #' @details `disease` and `tissue` arguments should be displayed in the title
-#' of [plot_violin()] only if the `gene` argument does not already have them
-#' in its attributes.
+#' of [plot.biodata()] only if the `genes` argument does not already have
+#' them in its attributes.
 #'
 #' @return
 #' data frame with the following columns:
 #' \itemize{
 #'     \item \code{high} (logical): the expression levels of a selected gene,
 #'     TRUE for below or FALSE for above average.
-#'     \item \code{cell_type} (factor): cell types.
+#'     \item \code{cells} (factor): cell types.
 #'     \item \code{value} (float): the abundance estimation of the cell types.
 #' }
 #' @export
 #'
 #' @examples
 #' data(tcga)
-#' (df_formatted <- convert_biodata(tcga$genes, tcga$cells$Cibersort, "A"))
+#' (df_formatted <- convert_biodata(tcga$genes, tcga$cells$Cibersort, "ICOS"))
 convert_biodata <- function(
     gene,
     cell_type,
