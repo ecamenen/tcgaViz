@@ -40,26 +40,27 @@
 #' data(tcga)
 #' (df_formatted <- convert_biodata(tcga$genes, tcga$cells$Cibersort, "ICOS"))
 convert_biodata <- function(
-    gene,
-    cell_type,
-    select = colnames(gene)[3],
+    genes,
+    cells,
+    select = colnames(genes)[3],
     stat = "mean",
     disease = NULL,
     tissue = NULL
 ) {
 
+    stat <- paste(tolower(stat))
     if (!stat %in% c("mean", "median", "quantile")) {
         stop("Please select an option between 'mean', 'median' or 'quantile'")
     }
 
     # Merge dataset
-    data <- merge(cell_type, gene, by = 1)
+    data <- merge(cells, genes, by = 1)
 
-    if (!is.null(attributes(gene)$disease) && is.null(disease)) {
-        disease <- attributes(gene)$disease
+    if (!is.null(attributes(genes)$disease) && is.null(disease)) {
+        disease <- attributes(genes)$disease
     }
-    if (!is.null(attributes(gene)$tissue) && is.null(tissue)) {
-        tissue <- attributes(gene)$tissue
+    if (!is.null(attributes(genes)$tissue) && is.null(tissue)) {
+        tissue <- attributes(genes)$tissue
     }
 
     # Calculation of the gene expression median
@@ -90,13 +91,17 @@ convert_biodata <- function(
     # Remove the samples, study and the gene columns
     cutted_melt <- subset(
         cutted,
-        select = c(colnames(cell_type)[-seq(2)], "high")
+        select = c(colnames(cells)[-seq(2)], "high")
     )
+    cutted_melt$high <- as.factor(cutted_melt$high)
+
+    if (length(levels(cutted_melt$high)) == 1) {
+        stop(stop_msg_stat)
+    }
 
     # Get a 3-column table with the value associated with each cell type
     # and its gene expression level
-    sub_cutted_melt <- melt(cutted_melt, id.vars = "high") %>%
-        tibble()
+    sub_cutted_melt <- melt(cutted_melt, id.vars = "high") %>% tibble()
     colnames(sub_cutted_melt)[2] <- "cell_type"
     sub_cutted_melt$value <- sub_cutted_melt$value + 1e-05
 

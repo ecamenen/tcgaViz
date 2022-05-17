@@ -15,9 +15,16 @@
 #'     algorithm = "Cibersort_ABS",
 #'     disease = "breast invasive carcinoma",
 #'     tissue = "Primary Tumor",
-#'     gene_x = "A"
+#'     gene_x = "ICOS"
 #' ))
-convert2biodata <- function(algorithm, disease, tissue, gene_x, path = ".") {
+convert2biodata <- function(
+    algorithm,
+    disease,
+    tissue,
+    gene_x,
+    stat = "mean",
+    path = "."
+) {
     if (!exists("tcga")) {
         message("TCGA loading in progess...")
         file <- file.path(path, "tcga.rda")
@@ -68,5 +75,5 @@ convert2biodata <- function(algorithm, disease, tissue, gene_x, path = ".") {
     attributes(dataset)$tissue <- tissue
 
     # Data formatting
-    convert_biodata(dataset, tcga_pop, gene_x)
+    convert_biodata(dataset, tcga_pop, gene_x, stat)
 }
