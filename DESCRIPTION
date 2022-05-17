@@ -12,9 +12,9 @@ Authors@R:
       person(given = "Nicolas",
              family = "Aubert",
              role = "aut"))
-Description: A vizualisation tool to depict proportions of immune cells in
-    any tumor relative to the average expression of any gene (or
-    signature).
+Description: Differential analysis of tumor tissue immune cell type abundance
+    based on RNASeq gene-level expression from The Cancer Genome Atlas (TCGA)
+    database.
 License: GPL-3
 Depends: 
     R (>= 2.10)
@@ -22,10 +22,12 @@ Imports:
     config,
     data.table,
     dplyr,
+    DT,
     ggplot2,
     ggpubr,
-    magrittr,
     golem,
+    grDevices,
+    magrittr,
     methods,
     openxlsx,
     plotly,
@@ -35,10 +37,12 @@ Imports:
     rstatix,
     shiny,
     shinyFeedback,
+    shinyjs,
     stats,
     stringr,
     tidyr,
-    tidyselect
+    tidyselect,
+    utils
 Suggests:
     BiocCheck,
     covr,
@@ -48,7 +52,8 @@ Suggests:
     testthat
 VignetteBuilder: 
     knitr
-biocViews: Visualization, ImmunoOncology, Genetics, GeneExpression
+biocViews: Visualization, ImmunoOncology, Genetics, GeneExpression,
+    MultipleComparison
 Encoding: UTF-8
 Language: en-US
 LazyData: false

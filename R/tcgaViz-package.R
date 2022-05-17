@@ -2,8 +2,8 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import golem plotly rlang rstatix shiny shinyFeedback stringr tidyr
-#' tidyselect
+#' @import DT golem grDevices plotly rlang rstatix shinyFeedback shinyjs
+#' stringr tidyr tidyselect utils
 #' @importFrom config get
 #' @importFrom data.table transpose
 #' @importFrom dplyr mutate relocate
@@ -15,6 +15,7 @@
 #' @importFrom stats quantile p.adjust.methods sd
 #' @importFrom magrittr %>%
 #' @rawNamespace import(ggplot2, except = last_plot)
+#' @rawNamespace import(shiny, except = c(dataTableOutput, renderDataTable, runExample))
 #' @examples
 #' # Load two data sets with the same cancer type and
 #' # TCGA sample identifiers.
