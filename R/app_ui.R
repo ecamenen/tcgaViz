@@ -58,7 +58,7 @@ app_ui <- function(request) {
                             selectInput(
                                 "correction",
                                 "Multiple correction",
-                                choices = sort(p.adjust.methods)
+                                choices = format_correction_choices()
                             ),
                             sliderInput(
                                 "pval",
@@ -70,7 +70,7 @@ app_ui <- function(request) {
                             selectInput(
                                 "stat",
                                 "Cut-off",
-                                choices = c("mean", "median", "quantile")
+                                choices = c("Mean", "Median", "Quantile")
                             )
                         ),
                         tabPanel(
@@ -78,7 +78,7 @@ app_ui <- function(request) {
                             radioButtons(
                                 "type",
                                 "Plot",
-                                choices = c("violin", "boxplot")
+                                choices = c("Violin", "Boxplot")
                             ),
                             checkboxInput("dots", "Add dots", FALSE)
                         ))

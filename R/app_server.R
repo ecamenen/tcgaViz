@@ -39,7 +39,7 @@ app_server <- function(input, output, session) {
             # "All",
             str_to_title(
                 sort(unique(tcga$phenotypes$`_primary_disease`))
-                )
+            )
         ),
         selected = "Breast Invasive Carcinoma"
     )
@@ -50,7 +50,7 @@ app_server <- function(input, output, session) {
         inputId = "tissue",
         choices = c(
             # "All",
-            sort(unique(tcga$phenotypes$sample_type))
+            sort(levels(tcga$phenotypes$sample_type))
         ),
         selected = "Primary Tumor"
     )
@@ -108,7 +108,7 @@ app_server <- function(input, output, session) {
         req(input$gene_x != "")
         vars$genes <- select(
             tcga$genes,
-            col,
+            sample,
             input$gene_x
         )
     })
