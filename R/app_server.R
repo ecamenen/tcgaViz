@@ -274,5 +274,31 @@ app_server <- function(input, output, session) {
             formatSignif(columns = 2:8, digits = 3)
     })
 
+    output$download_distribution <- downloadHandler(
+        filename = function() {
+            "statistics.tiff"
+        },
+        content = function(file) {
+            req(vars$bioplot)
+            tiff(file, units = "px", width = 2500, height = 2500, res = 300)
+            plot_distribution_app()
+            dev.off()
+        }
+    )
+
+    output$download_stats <- downloadHandler(
+        filename = function() {
+            "statistics.csv"
+        },
+        content = function(file) {
+            req(vars$biostats)
+            df <- data.frame(get_biostats(vars$biostats))
+            for (i in 2:8) {
+                df[, i] <- formatC(df[, i], format = "e", digits = 3)
+            }
+            write.csv(df, file = file, row.names = FALSE)
+        }
+    )
+
     exportTestValues(vars2 = vars)
 }

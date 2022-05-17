@@ -107,11 +107,13 @@ app_ui <- function(request) {
                         id = "navbar",
                         tabPanel(
                             "Distribution plot",
-                            plotOutput("distribution_plot", height = 700)
+                            plotOutput("distribution_plot", height = 700),
+                            downloadButton("download_distribution")
                         ),
                         tabPanel(
                             "Statistic summary",
-                            DT::dataTableOutput("stats_summary")
+                            DT::dataTableOutput("stats_summary"),
+                            downloadButton("download_stats")
                         )
                     )
                 )
