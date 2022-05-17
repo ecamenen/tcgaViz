@@ -238,7 +238,40 @@ app_server <- function(input, output, session) {
 
     output$stats_summary <- DT::renderDataTable({
         req(vars$biostats)
-        summary.biostats(vars$biostats)
+        df <- get_biostats(vars$biostats) %>%
+            datatable(
+                caption = gsub("\\n", ": ", description.biostats(vars$biostats)),
+                class = "cell-border stripe",
+                rownames = FALSE,
+                extensions = c("Scroller"),
+                selection = "none",
+                callback = JS('$("button.buttons-copy").css("background","#fff");
+                $("button.buttons-collection").css("background","#fff");
+                return table;'),
+                options = list(
+                    initComplete = JS(
+                        "function(settings, json) {",
+                        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                        "}"
+                    ),
+                    dom = "frtp",
+                    columnDefs = list(
+                        list(
+                            targets = "_all",
+                            render = JS(
+                                "function(data, type, row, meta) {",
+                                "return type === 'display' && data != null && data.length > 50 ?",
+                                "'<span title=\"' + data + '\">' + data.substr(0, 50) + '...</span>' : data;",
+                                "}"
+                            )
+                        )
+                    ),
+                    scrollY = 600, scrollX = 400, scroller = TRUE,
+                    searchHighlight = TRUE,
+                    search = list(regex = TRUE)
+                )
+            ) %>%
+            formatSignif(columns = 2:8, digits = 3)
     })
 
     exportTestValues(vars2 = vars)
