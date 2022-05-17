@@ -1,14 +1,28 @@
 #' The application User-Interface
 #'
 #' @param request Internal parameter for `{shiny}`.
-#' @import shiny
 #' @noRd
 app_ui <- function(request) {
     tagList(
         golem_add_external_resources(),
         fluidPage(
             shinyFeedback::useShinyFeedback(),
-            h1("tcgaViz"),
+            title = "tcga-Viz",
+            h1(toupper("tcga-Viz")),
+            tags$p(
+                tags$a(
+                    href = "https://github.com/ecamenen/tcgaViz",
+                    "Etienne CAMENEN,"
+                ),
+                "Gilles MARODON, Nicolas AUBERT"
+            ),
+            h4(
+                paste(
+                    "Differential analysis of tumor tissue immune cell type",
+                    "abundance based on RNASeq gene-level expression from The",
+                    "Cancer Genome Atlas (TCGA) database."
+                )
+            ),
             sidebarLayout(
                 sidebarPanel(
                     tabsetPanel(
@@ -29,7 +43,8 @@ app_ui <- function(request) {
                                     placeholder = "Select a gene",
                                     mode = "multi"
                                 )
-                            )),
+                            )
+                        ),
                         tabPanel(
                             "Statistics",
                             selectInput(
@@ -84,7 +99,6 @@ app_ui <- function(request) {
 #' This function is internally used to add external
 #' resources inside the Shiny application.
 #'
-#' @import shiny
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function() {
