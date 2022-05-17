@@ -60,11 +60,19 @@ app_ui <- function(request) {
                                 "Multiple correction",
                                 choices = sort(p.adjust.methods)
                             ),
+                            sliderInput(
+                                "pval",
+                                "P-value threshold",
+                                max = 1,
+                                min = 0,
+                                value = 0.05
+                            ),
                             selectInput(
                                 "stat",
                                 "Cut-off",
                                 choices = c("mean", "median", "quantile")
-                            )),
+                            )
+                        ),
                         tabPanel(
                             "Plot",
                             radioButtons(

@@ -139,13 +139,14 @@ app_server <- function(input, output, session) {
         )
     })
 
-    observeEvent(c(vars$biodata, input$test, input$correction), {
+    observeEvent(c(vars$biodata, input$test, input$correction, input$pval), {
         req(vars$biodata)
         vars$biostats <- show_notif(
             calculate_pvalue(
                 vars$biodata,
                 method_test = input$test,
-                method_adjust = input$correction
+                method_adjust = input$correction,
+                p_threshold = input$pval
             ),
             "Statistic calculation in progress..."
         )
