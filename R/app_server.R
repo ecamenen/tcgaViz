@@ -1,16 +1,18 @@
 #' The application server-side
 #'
 #' @param input,output,session Internal parameters for {shiny}.
-#' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
 
     ########## Dataset loading ##########
-    path <- file.path(get_golem_wd(), "inst", "extdata")
-    show_notif(
-        load(file.path(path, "tcga.rda")),
-        "Data loading in progress..."
-    )
+    if (!exists("tcga")) {
+        path <- file.path(get_golem_wd(), "inst", "extdata")
+        show_message(
+            load(file.path(path, "tcga.rda")),
+            "Data loading in progress..."
+        )
+        tcga <<- tcga
+    }
 
     vars <- reactiveValues(
         cells = tcga$cells,
@@ -129,19 +131,46 @@ app_server <- function(input, output, session) {
         }
     )
 
-    observeEvent(c(vars$dataset, vars$cells, input$gene_x, input$stat, input$disease, input$tissue), {
+    observeEvent(c(
+        vars$dataset,
+        vars$cells,
+        input$gene_x,
+        input$stat,
+        input$disease,
+        input$tissue
+    ), {
         req(vars$dataset)
         req(!is(vars$cells, "list"))
         req(input$stat)
+        req(input$gene_x != "")
+        req(input$gene_x %in% colnames(vars$dataset))
         print_dev("Data formatting in progress...")
-        vars$biodata <- isolate(
-            convert_biodata(vars$dataset, vars$cells, input$gene_x, input$stat, input$disease, input$tissue)
+        biodata <- show_notif(
+            isolate(
+                convert_biodata(
+                    vars$dataset,
+                    vars$cells,
+                    input$gene_x,
+                    input$stat,
+                    input$disease,
+                    input$tissue
+                )
+            )
         )
+        condition <- !is.null(biodata)
+        shinyFeedback::feedbackWarning(
+            "stat",
+            !condition,
+            stop_msg_stat
+        )
+        req(condition)
+        vars$biodata <- biodata
+        show(id = "navbar")
     })
 
     observeEvent(c(vars$biodata, input$test, input$correction, input$pval), {
         req(vars$biodata)
-        vars$biostats <- show_notif(
+        vars$biostats <- show_message(
             calculate_pvalue(
                 vars$biodata,
                 method_test = input$test,
