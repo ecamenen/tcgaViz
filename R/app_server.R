@@ -181,21 +181,59 @@ app_server <- function(input, output, session) {
         )
     })
 
-    observeEvent(c(vars$biodata, input$type, input$dots), {
-        req(vars$biostats)
-        vars$bioplot <- plot_violin(
+    observeEvent(
+        c(
             vars$biodata,
+            vars$biostats,
             input$type,
             input$dots,
-            stats = vars$biostats
-        )
-    })
+            input$title,
+            input$xlab,
+            input$ylab,
+            input$cex_main,
+            input$cex_lab
+        ),
+        {
+            req(vars$biostats)
+            if (input$title == "") {
+                title <- NULL
+            } else {
+                title <- input$title
+            }
+            if (input$xlab == "") {
+                xlab <- NULL
+            } else {
+                xlab <- input$xlab
+            }
+            if (input$ylab == "") {
+                ylab <- NULL
+            } else {
+                ylab <- input$ylab
+            }
+            vars$bioplot <- plot(
+                x = vars$biodata,
+                type = input$type,
+                dots = input$dots,
+                stats = vars$biostats,
+                title = title,
+                xlab = xlab,
+                ylab = ylab,
+                cex.main = input$cex_main,
+                cex.lab = input$cex_lab,
+                draw = FALSE
+            )
+        }
+    )
+
+    plot_distribution_app <- function() {
+        options(warn = -1)
+        plot(vars$bioplot)
+        options(warn = 0)
+    }
 
     output$distribution_plot <- renderPlot({
         req(vars$bioplot)
-        options(warn = -1)
-        show_notif(plot(vars$bioplot), "Plot in progress...")
-        options(warn = 0)
+        show_message(plot_distribution_app(), "Plot in progress...")
     })
 
     output$stats_summary <- DT::renderDataTable({

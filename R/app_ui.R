@@ -80,8 +80,26 @@ app_ui <- function(request) {
                                 "Plot",
                                 choices = c("Violin", "Boxplot")
                             ),
-                            checkboxInput("dots", "Add dots", FALSE)
-                        ))
+                            checkboxInput("dots", "Add dots", FALSE),
+                            textInput("title", "Main title"),
+                            textInput("xlab", "X-axis title"),
+                            textInput("ylab", "Y-axis title"),
+                            sliderInput(
+                                "cex_main",
+                                "Size of the main title",
+                                max = 40,
+                                min = 10,
+                                value = 16
+                            ),
+                            sliderInput(
+                                "cex_lab",
+                                "Size of the axis titles",
+                                max = 40,
+                                min = 10,
+                                value = 12
+                            )
+                        )
+                    )
                 ),
                 mainPanel(
                     tabsetPanel(
