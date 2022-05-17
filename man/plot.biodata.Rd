@@ -32,17 +32,17 @@ columns named high (logical), cell_type (factor) and value (float).}
 \item{type}{character for the type of plot to be chosen among "violin"
 or "boxplot".}
 
-\item{dots}{boolean to add all x to the graph as points.}
+\item{dots}{boolean to add all points to the graph.}
 
 \item{title}{character for the title of the plot.}
 
 \item{xlab}{character for the name of the X axis label.}
 
-\item{ylab}{character for the name of the X axis label.}
+\item{ylab}{character for the name of the Y axis label.}
 
 \item{stats}{object from \code{\link[=calculate_pvalue]{calculate_pvalue()}}.}
 
-\item{draw}{bolean to plot.}
+\item{draw}{bolean to plot the graph.}
 
 \item{axis.text.x}{tick labels along axes (\code{\link[ggplot2:element]{element_text()}}). Specify all axis tick labels (\code{axis.text}),
 tick labels by plane (using \code{axis.text.x} or \code{axis.text.y}), or individually
@@ -114,7 +114,7 @@ plot(
     title = "Differential analysis of tumor tissue immune cell type abundance
     based on RNASeq gene-level expression from The Cancer Genome Atlas
     (TCGA) database",
-   axis.text.y = element_text(size = 8, hjust = 0.5),
-   plot.title =  element_text(face = "bold", hjust = 0.5)
+    axis.text.y = element_text(size = 8, hjust = 0.5),
+    plot.title =  element_text(face = "bold", hjust = 0.5)
 )
 }
