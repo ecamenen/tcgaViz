@@ -108,6 +108,14 @@ dim(tcga$phenotypes)
 tcga = list(cells = list(Cibersort_ABS = tibble(cells)), genes = tibble(genes), phenotypes = tibble(phenotypes))
 usethis::use_data(tcga, overwrite = TRUE)
 
+###### Controlled vocabulary ######
+
+metadata <- list()
+for (x in c("disease", "algorithm", "tissue", "gene")) {
+    metadata[[x]] <- read.csv(file.path(path, paste0(x, "_list.csv")), header = FALSE)
+}
+usethis::use_data(metadata, overwrite = TRUE, internal = TRUE)
+
 ###### Descriptive statistics ######
 
 dataset <- merge(tcga$phenotypes, tcga$genes, by = 1)
@@ -156,4 +164,3 @@ sd_stats <- temp %>%
     ))
 
 t(rbind(sd_stats, mean_stats))
-

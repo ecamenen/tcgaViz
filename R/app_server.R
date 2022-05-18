@@ -6,7 +6,7 @@ app_server <- function(input, output, session) {
 
     ########## Dataset loading ##########
     if (!exists("tcga")) {
-        path <- file.path(get_golem_wd(), "inst", "extdata")
+        path <- system.file("extdata", package = "tcgaViz")
         show_message(
             load(file.path(path, "tcga.rda")),
             "Data loading in progress..."
@@ -165,7 +165,6 @@ app_server <- function(input, output, session) {
         )
         req(condition)
         vars$biodata <- biodata
-        show(id = "navbar")
     })
 
     observeEvent(c(vars$biodata, input$test, input$correction, input$pval), {

@@ -1,5 +1,3 @@
-path <- file.path(golem::get_golem_wd(), "inst", "extdata")
-
 stop_msg_stat <- paste(
     "One of the quantiles has no value.",
     "Please select another statistic."
@@ -20,15 +18,19 @@ check_colors <- function(colors) {
 # check_list("ARL17A", "gene")
 # check_list("acute myeloid leukemia2", "disease")
 # "'acute myeloid leukemia2' is not in the disease list.
-# Please, check in /home/rstudio/inst/extdata/disease_list.csv."
+# Please check in [...]/extdata/disease_list.csv."
 check_list <- function(x, y) {
     x <- paste(x)
     y <- paste(y)
     if (y == "disease") {
         x <- tolower(x)
     }
-    file_path <- file.path(path, paste0(y, "_list.csv"))
-    if (!x %in% read.csv(file_path, header = FALSE)[, 1]) {
+    file_path <- file.path(
+        system.file("extdata", package = "tcgaViz"),
+        paste0(y, "_list.csv")
+    )
+    metadata <- get0("metadata", envir = asNamespace("tcgaViz"))
+    if (!x %in% metadata[[y]][, 1]) {
         stop(
             paste0(
                 "'",
@@ -68,7 +70,7 @@ check_object <- function(x, y) {
                 deparse(substitute(x)),
                 " must be a ",
                 y,
-                "object. Check ?",
+                "object. Please check ?",
                 func,
                 "."
             )

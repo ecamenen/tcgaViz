@@ -7,7 +7,7 @@ algorithm <- "Cibersort_ABS"
 disease <- "breast invasive carcinoma"
 gene_x <- "ICOS"
 tissue <- "Primary Tumor"
-path <- file.path(golem::get_golem_wd(), "inst", "extdata")
+path <- system.file("extdata", package = "tcgaViz")
 
 ########## Dataset loading ##########
 message("TCGA loading in progess...")

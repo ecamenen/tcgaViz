@@ -13,6 +13,7 @@ utils::globalVariables(
         "sd_High",
         "sd_Low",
         "p.adj.signif",
-        "stats"
+        "stats",
+        "metadata"
     )
 )

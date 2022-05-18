@@ -3,11 +3,9 @@ description <- function(x) {
 }
 
 get_disease_abbreviation <- function(disease) {
-    path <- file.path(golem::get_golem_wd(), "inst", "extdata")
-    file_path <- file.path(path, "disease_list.csv")
-    file <- read.csv(file_path, header = FALSE)
-    diseases <- as.list(file[, 2])
-    names(diseases) <- file[, 1]
+    metadata <- get0("metadata", envir = asNamespace("tcgaViz"))
+    diseases <- as.list(metadata[["disease"]][, 2])
+    names(diseases) <- metadata[["disease"]][, 1]
     return(diseases[[tolower(disease)]])
 }
 
