@@ -2,19 +2,23 @@
 # Date: 2021
 # Contact: etienne.camenen@gmail.com
 
-FROM rocker/rstudio:4.0
+FROM rocker/shiny-verse
 
 MAINTAINER Etienne CAMENEN (etienne.camenen@gmail.com)
 
 ENV PKGS libxml2-dev libcurl4-openssl-dev libssl-dev liblapack-dev git cmake qpdf
 ENV _R_CHECK_FORCE_SUGGESTS_ FALSE
+ENV TOOL_NAME tcgaViz
+ENV TOOL_VERSION 0.6.0
 
-RUN apt-get update -qq && \
+RUN apt-get update --allow-releaseinfo-change -qq && \
     apt-get install -y ${PKGS}
-ENV RPKGS attachment BiocManager config covr data.table devtools dplyr DT globals ggplot2 ggpubr golem knitr lintr markdown openxlsx pkgload plotly profviz readr reactlog reshape2 rmarkdown rsconnect rstatix shinytest spelling testthat shiny shinyFeedback shinyjs styler
-RUN Rscript -e 'install.packages(commandArgs(TRUE))' ${RPKGS}
-RUN Rscript -e 'BiocManager::install("BiocCheck")'
-RUN cd /home/rstudio/ && \
-    Rscript -e 'shinytest::installDependencies()'
-RUN apt-get install -y --no-install-recommends libxt6
-COPY . /home/rstudio
+RUN R -e "devtools::install_github('ecamenen/"${TOOL_NAME}"', ref = '"${TOOL_VERSION}"')"
+RUN apt-get purge -y git g++ && \
+	apt-get autoremove --purge -y && \
+	apt-get clean && \
+	rm -rf /var/lib/{cache,log}/ /tmp/* /var/tmp/*
+
+EXPOSE 3838
+
+CMD ["R", "-e", "tcgaViz::run_app(options = list(host = '0.0.0.0', port = 3838))"]
