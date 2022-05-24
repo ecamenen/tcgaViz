@@ -80,6 +80,16 @@ tcga$genes <- tcga$genes %>% rename(SLC35E2 = SLC35E2...16303, SLC35E2_1 = SLC35
 
 usethis::use_data(tcga, overwrite = TRUE)
 
+###### Divide the data ######
+
+genes_1 <- tcga$genes[seq(3690), ]
+genes_3 <- tcga$genes[ c((3690*2):nrow(tcga$genes)), ]
+genes_2 <- tcga$genes[c(3691:(3690*2)), ]
+
+for (f in c("cells", "phenotypes", paste0("genes_", seq(3)))) {
+    usethis::use_data(f, overwrite = TRUE)
+}
+
 ###### Subset of raw data ######
 
 algorithm <- "Cibersort_ABS"

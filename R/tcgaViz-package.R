@@ -6,7 +6,7 @@
 #' stringr tidyr tidyselect utils
 #' @importFrom config get
 #' @importFrom data.table transpose
-#' @importFrom dplyr mutate relocate
+#' @importFrom dplyr mutate relocate bind_rows
 #' @importFrom ggpubr ggviolin ggboxplot ggpar stat_pvalue_manual
 #' @importFrom openxlsx read.xlsx
 #' @importFrom readr read_delim

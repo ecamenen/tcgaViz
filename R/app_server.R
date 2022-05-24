@@ -6,12 +6,10 @@ app_server <- function(input, output, session) {
 
     ########## Dataset loading ##########
     if (!exists("tcga")) {
-        path <- system.file("extdata", package = "tcgaViz")
-        show_message(
-            load(file.path(path, "tcga.rda")),
+        tcga <<- show_message(
+            load_tcga(),
             "Data loading in progress..."
         )
-        tcga <<- tcga
     }
 
     vars <- reactiveValues(
@@ -26,7 +24,6 @@ app_server <- function(input, output, session) {
     )
 
     freezeReactiveValue(input, "algorithm")
-    print_dev("Set cells choices")
     updateSelectInput(
         inputId = "algorithm",
         choices = sort(names(tcga$cells)),
@@ -34,7 +31,6 @@ app_server <- function(input, output, session) {
     )
 
     freezeReactiveValue(input, "disease")
-    print_dev("Set disease choices")
     updateSelectInput(
         inputId = "disease",
         choices = c(
@@ -47,7 +43,6 @@ app_server <- function(input, output, session) {
     )
 
     freezeReactiveValue(input, "tissue")
-    print_dev("Set tissue choices")
     updateSelectInput(
         inputId = "tissue",
         choices = c(
@@ -57,7 +52,6 @@ app_server <- function(input, output, session) {
         selected = "Primary Tumor"
     )
 
-    print_dev("Gene loading in progress")
     updateSelectizeInput(
         inputId = "gene_x",
         choices = colnames(tcga$genes)[-1],
@@ -66,16 +60,13 @@ app_server <- function(input, output, session) {
     )
 
     observeEvent(input$algorithm, {
-        print_dev("Cell formatting")
         req(input$algorithm != "")
         vars$cells <- tcga$cells[[input$algorithm]]
     })
 
     observeEvent(input$disease, {
-        message_dev("Phenotype formatting")
         req(input$disease != "All")
         req(input$disease != "")
-        print_dev(input$disease)
         vars$phenotypes_temp <- tcga$phenotypes[
             tcga$phenotypes$`_primary_disease` == tolower(input$disease),
         ]
@@ -84,11 +75,9 @@ app_server <- function(input, output, session) {
     observeEvent(
         c(input$tissue, vars$phenotypes_temp),
         {
-            message_dev("Tissue formatting")
             req(vars$phenotypes_temp$sample_type)
             req(input$tissue != "All")
             req(input$tissue != "")
-            print_dev(input$tissue)
             phenotypes <- vars$phenotypes_temp[
                 vars$phenotypes_temp$sample_type == input$tissue,
                 "sample"
@@ -105,7 +94,6 @@ app_server <- function(input, output, session) {
     )
 
     observeEvent(input$gene_x, {
-        print_dev(c("Gene formatting", input$gene_x))
         req(input$gene_x)
         req(input$gene_x != "")
         vars$genes <- select(
@@ -119,10 +107,8 @@ app_server <- function(input, output, session) {
     observeEvent(
         c(vars$phenotypes, vars$genes, input$algorithm, input$disease),
         {
-            message_dev("Launching merge")
             req(ncol(vars$phenotypes) == 1)
             req(ncol(vars$genes) == 2)
-            print_dev("Merge in progress...")
             vars$dataset <- merge(
                 subset(vars$phenotypes, select = "sample"),
                 vars$genes,
@@ -144,7 +130,6 @@ app_server <- function(input, output, session) {
         req(input$stat)
         req(input$gene_x != "")
         req(input$gene_x %in% colnames(vars$dataset))
-        print_dev("Data formatting in progress...")
         biodata <- show_notif(
             isolate(
                 convert_biodata(
