@@ -41,7 +41,7 @@ devtools::install_github("ecamenen/tcgaViz")
 ## Launch the Shiny server
 Open R, then run:
 ```r
-runApp()
+tcgaViz::run_app(()
 ```
 
 ## Docker
@@ -58,12 +58,7 @@ docker build -t tcga-viz .
 
 ###### Run in command-line
 ```
-docker run --rm \
-  -p 127.0.0.1:8787:8787 \
-  -v $(pwd):/home/rstudio \
-  -e ROOT=TRUE \
-  -e DISABLE_AUTH=true \
-  tcga-viz
+docker run --rm -p 127.0.0.1:3838:3838 tcga-viz
 ```
 
 ## Example

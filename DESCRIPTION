@@ -12,9 +12,9 @@ Authors@R:
       person(given = "Nicolas",
              family = "Aubert",
              role = "aut"))
-Description: Differential analysis of tumor tissue immune cell type abundance
-    based on RNASeq gene-level expression from The Cancer Genome Atlas (TCGA)
-    database.
+Description: Differential analysis of tumor tissue immune cell type
+    abundance based on RNASeq gene-level expression from The Cancer Genome
+    Atlas (TCGA) database.
 License: GPL-3
 Depends: 
     R (>= 2.10)
