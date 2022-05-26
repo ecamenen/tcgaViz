@@ -41,7 +41,7 @@ devtools::install_github("ecamenen/tcgaViz")
 ## Launch the Shiny server
 Open R, then run:
 ```r
-tcgaViz::run_app(()
+tcgaViz::run_app()
 ```
 
 ## Docker
