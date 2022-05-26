@@ -8,6 +8,8 @@ use_recommended_tests()
 use_recommended_deps()
 remove_favicon()
 
+set_golem_version("0.6.0")
+
 use_utils_ui()
 use_utils_server()
 

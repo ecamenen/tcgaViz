@@ -224,7 +224,11 @@ app_server <- function(input, output, session) {
         req(vars$biostats)
         df <- get_biostats(vars$biostats) %>%
             datatable(
-                caption = gsub("\\n", ": ", description.biostats(vars$biostats)),
+                caption = gsub(
+                    "\\n",
+                    ": ",
+                    description.biostats(vars$biostats)
+                ),
                 class = "cell-border stripe",
                 rownames = FALSE,
                 extensions = c("Scroller"),

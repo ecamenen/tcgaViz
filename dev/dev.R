@@ -26,7 +26,6 @@ build_readme()
 check()
 BiocCheck::BiocCheck(paste0(get_golem_name(), "_", get_golem_version(), ".tar.gz"))
 
-
 build_manual()
 
 use_version()
