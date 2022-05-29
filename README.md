@@ -10,7 +10,7 @@ status](https://www.r-pkg.org/badges/version/tcgaViz)](https://CRAN.R-project.or
 [![R build
 status](https://github.com/ecamenen/tcgaViz/workflows/R-CMD-check/badge.svg)](https://github.com/ecamenen/tcgaViz/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/ecamenen/tcgaViz/branch/develop/graph/badge.svg)](https://codecov.io/gh/ecamenen/tcgaViz?branch=master)
+coverage](https://codecov.io/gh/ecamenen/tcgaViz/branch/develop/graph/badge.svg)](https://app.codecov.io/gh/ecamenen/tcgaViz?branch=master)
 <!-- badges: end -->
 
 Differential analysis of tumor tissue immune cell type abundance based

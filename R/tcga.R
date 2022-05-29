@@ -14,7 +14,7 @@
 #' primary tumor tissue.  The cell type data are from a subset generated
 #' by the Cibersort_ABS algorithm.
 #' @source
-#' \url{https://cancergenome.nih.gov/} \cr
+#' \url{https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga} \cr
 #' \url{https://cibersort.stanford.edu/}
 #' @examples
 #' library(ggpubr)

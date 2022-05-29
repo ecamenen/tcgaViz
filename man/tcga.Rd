@@ -5,7 +5,7 @@
 \alias{tcga}
 \title{Random biological data}
 \source{
-\url{https://cancergenome.nih.gov/} \cr
+\url{https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga} \cr
 \url{https://cibersort.stanford.edu/}
 }
 \usage{
