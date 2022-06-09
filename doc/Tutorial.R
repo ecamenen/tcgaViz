@@ -1,37 +1,17 @@
----
-title: "Tutorial"
-output:
-    rmarkdown::pdf_document:
-      fig_width: 11
-      fig_height: 8
-vignette: >
-  %\VignetteIndexEntry{Tutorial}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-```{r, include = FALSE}
+## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-```
 
-#### Load the dataset
-A subset of invasive breast carcinoma data from primary tumor tissue. See
- ``?tcga`` for more information on loading the full dataset or metadata.
-```{r data}
+## ----data---------------------------------------------------------------------
 library(tcgaViz)
 library(ggplot2)
 data(tcga)
 head(tcga$genes)
 head(tcga$cells$Cibersort_ABS)
-```
 
-#### Violin plot of cell subtypes
-And perform a significance of a Wilcoxon adjusted test according to the
- expression level (high or low) of a selected gene.
-```{r plot, warning = FALSE}
+## ----plot, warning = FALSE----------------------------------------------------
 df <- convert2biodata(
   algorithm = "Cibersort_ABS",
   disease = "breast invasive carcinoma",
@@ -40,11 +20,8 @@ df <- convert2biodata(
 )
 (stats <- calculate_pvalue(df))
 plot(df, stats = stats)
-```
 
-###### Advanced parameters
-With [ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html) expressions.
-```{r advanced}
+## ----advanced-----------------------------------------------------------------
 (df <- convert2biodata(
   algorithm = "Cibersort_ABS",
   disease = "breast invasive carcinoma",
@@ -75,8 +52,7 @@ plot(
   subtitle = paste("Breast Invasive Carcinoma (BRCA; Primary Tumor):",
                    "Student's t-test with Bonferroni (P < 0.01)")
 )
-```
 
-```{r end}
+## ----end----------------------------------------------------------------------
 sessionInfo()
-```
+
