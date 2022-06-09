@@ -1,0 +1,33 @@
+acute myeloid leukemia,LAML,Acute Myeloid Leukemia
+adrenocortical cancer,ACC,Adrenocortical carcinoma
+bladder urothelial carcinoma,BLCA,Bladder Urothelial Carcinoma
+brain lower grade glioma,LGG,Brain Lower Grade Glioma
+breast invasive carcinoma,BRCA,Breast invasive carcinoma
+cervical & endocervical cancer,CESC,Cervical squamous cell carcinoma and endocervical adenocarcinoma
+cholangiocarcinoma,CHOL,Cholangiocarcinoma
+colon adenocarcinoma,COAD,Colon adenocarcinoma
+diffuse large B-cell lymphoma,DLBC,Lymphoid Neoplasm Diffuse Large B-cell Lymphoma
+esophageal carcinoma,ESCA,Esophageal carcinoma
+glioblastoma multiforme,GBM,Glioblastoma multiforme
+head & neck squamous cell carcinoma,HNSC,Head and Neck squamous cell carcinoma
+kidney chromophobe,KICH,Kidney Chromophobe
+kidney clear cell carcinoma,KIRC,Kidney renal clear cell carcinoma
+kidney papillary cell carcinoma,KIRP,Kidney renal papillary cell carcinoma
+liver hepatocellular carcinoma,LIHC,Liver hepatocellular carcinoma
+lung adenocarcinoma,LUAD,Lung adenocarcinoma
+lung squamous cell carcinoma,LUSC,Lung squamous cell carcinoma
+mesothelioma,MESO,Mesothelioma
+ovarian serous cystadenocarcinoma,OV,Ovarian serous cystadenocarcinoma
+pancreatic adenocarcinoma,PAAD,Pancreatic adenocarcinoma
+pheochromocytoma & paraganglioma,PCPG,Pheochromocytoma and Paraganglioma
+prostate adenocarcinoma,PRAD,Prostate adenocarcinoma
+rectum adenocarcinoma,READ,Rectum adenocarcinoma
+sarcoma,SARC,Sarcoma
+skin cutaneous melanoma,SKCM,Skin Cutaneous Melanoma
+stomach adenocarcinoma,STAD,Stomach adenocarcinoma
+testicular germ cell tumor,TGCT,Testicular Germ Cell Tumors
+thymoma,THYM,Thymoma
+thyroid carcinoma,THCA,Thyroid carcinoma
+uterine carcinosarcoma,UCS,Uterine Carcinosarcoma
+uterine corpus endometrioid carcinoma,UCEC,Uterine Corpus Endometrial Carcinoma
+uveal melanoma,UVM,Uveal Melanoma

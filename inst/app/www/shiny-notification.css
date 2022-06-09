@@ -1,0 +1,5 @@
+.shiny-notification {
+    position:fixed;
+    top: calc(50%);
+    left: calc(50%);
+} 

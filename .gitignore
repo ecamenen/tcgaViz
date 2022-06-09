@@ -3,5 +3,12 @@
 .Ruserdata
 *.Rproj*
 .Rproj.user
+inst/doc
 .idea/
-inst/extdata/
+/Meta/
+.local/
+.config/
+.cache/
+bin/phantomjs
+/rsconnect/
+*.tar.gz
