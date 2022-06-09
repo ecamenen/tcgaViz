@@ -14,7 +14,7 @@ Differential analysis of tumor tissue immune cell type
 \itemize{
 \item \href{https://github.com/ecamenen/tcgaViz}{Contribute to the development}
 \item \href{https://github.com/ecamenen/tcgaViz/issues}{Report bugs}
-\item \href{https://github.com/ecamenen/tcgaViz/doc/Tutorial.html}{Read the tutorial}
+\item \href{https://github.com/ecamenen/tcgaViz/doc/Tutorial.pdf}{Read the tutorial}
 }
 }
 \author{
