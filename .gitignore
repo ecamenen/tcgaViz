@@ -5,7 +5,6 @@
 .Rproj.user
 inst/doc
 .idea/
-/doc/Tutorial.R*
 /Meta/
 .local/
 .config/
