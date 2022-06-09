@@ -2,7 +2,6 @@
 ^\.Rproj\.user$
 ^\.idea$
 ^data-raw$
-dev_history.R
 ^dev$
 $run_dev.*
 ^app.R$
@@ -19,3 +18,4 @@ $run_dev.*
 ^bin$
 ^rsconnect$
 ^.*extdata/tcga\.rda$
+^.*\.tar\.gz$
