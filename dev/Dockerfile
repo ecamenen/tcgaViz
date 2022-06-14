@@ -6,7 +6,7 @@ FROM rocker/rstudio:4.0
 
 MAINTAINER Etienne CAMENEN (etienne.camenen@gmail.com)
 
-ENV PKGS libxml2-dev libcurl4-openssl-dev libssl-dev liblapack-dev git cmake qpdf
+ENV PKGS libxml2-dev libcurl4-openssl-dev libssl-dev liblapack-dev git cmake qpdf texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra
 ENV _R_CHECK_FORCE_SUGGESTS_ FALSE
 
 RUN apt-get update -qq && \

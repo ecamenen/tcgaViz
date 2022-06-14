@@ -48,17 +48,19 @@ devtools::install_github("ecamenen/tcgaViz")
 
 ###### Run in command-line
 
-    docker run --rm -p 127.0.0.1:3838:3838 tcga-viz
+    docker run --rm -p 127.0.0.1:3838:3838 eucee/tcga-viz
 
 ## Example
 
 ###### Load the dataset
 
-(with the same cancer type and TCGA sample identifiers)
+A subset of invasive breast carcinoma data from primary tumor tissue.
+See `?tcga` for more information on loading the full dataset or
+metadata.
 
 ``` r
 library(tcgaViz)
-library(ggpubr, quietly = TRUE)
+library(ggplot2)
 data(tcga)
 head(tcga$genes)
 #> # A tibble: 6 x 2
@@ -92,8 +94,8 @@ head(tcga$cells$Cibersort_ABS)
 
 ###### Violin plot of cell subtypes
 
-(and significance of a Wilcoxon adjusted test according to the
-expression level \[high or low\] of a selected gene)
+And perform a significance of a Wilcoxon adjusted test according to the
+expression level (high or low) of a selected gene.
 
 ``` r
 (df <- convert2biodata(
@@ -148,6 +150,10 @@ plot(df, stats = stats)
 ![](man/figures/README-plot-1.png)<!-- -->
 
 ###### Advanced parameters
+
+With
+[ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html)
+expressions.
 
 ``` r
 (df <- convert2biodata(
