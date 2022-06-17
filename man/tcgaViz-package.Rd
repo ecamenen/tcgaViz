@@ -4,17 +4,17 @@
 \name{tcgaViz-package}
 \alias{tcgaViz}
 \alias{tcgaViz-package}
-\title{tcgaViz: Vizualisation Tool for The Cancer Genome Atlas Program (TCGA)}
+\title{tcgaViz: Visualization Tool for the Cancer Genome Atlas Program (TCGA)}
 \description{
 Differential analysis of tumor tissue immune cell type
-    abundance based on RNASeq gene-level expression from The Cancer Genome
-    Atlas (TCGA) database.
+    abundance based on RNA-seq gene-level expression from The Cancer
+    Genome Atlas (TCGA) database.
 }
 \seealso{
 \itemize{
 \item \href{https://github.com/ecamenen/tcgaViz}{Contribute to the development}
 \item \href{https://github.com/ecamenen/tcgaViz/issues}{Report bugs}
-\item \href{https://github.com/ecamenen/tcgaViz/doc/Tutorial.pdf}{Read the tutorial}
+\item \href{https://github.com/ecamenen/tcgaViz/blob/master/doc/Tutorial.pdf}{Read the tutorial}
 }
 }
 \author{
