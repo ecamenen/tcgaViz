@@ -9,8 +9,6 @@
 status](https://www.r-pkg.org/badges/version/tcgaViz)](https://CRAN.R-project.org/package=tcgaViz)
 [![R build
 status](https://github.com/ecamenen/tcgaViz/workflows/R-CMD-check/badge.svg)](https://github.com/ecamenen/tcgaViz/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/ecamenen/tcgaViz/branch/develop/graph/badge.svg)](https://app.codecov.io/gh/ecamenen/tcgaViz?branch=master)
 <!-- badges: end -->
 
 Differential analysis of tumor tissue immune cell type abundance based
@@ -67,21 +65,21 @@ head(tcga$genes)
 #>   sample           ICOS
 #>   <chr>           <dbl>
 #> 1 TCGA-3C-AAAU-01  1.25
-#> 2 TCGA-3C-AALI-01  5.63
-#> 3 TCGA-3C-AALJ-01  5.11
-#> 4 TCGA-3C-AALK-01  3.79
-#> 5 TCGA-4H-AAAK-01  4.24
-#> 6 TCGA-5L-AAT0-01  5.73
+#> 2 TCGA-A2-A04Q-01  7.79
+#> 3 TCGA-A2-A0T4-01  4.97
+#> 4 TCGA-A8-A08S-01  3.69
+#> 5 TCGA-A8-A09B-01  2.55
+#> 6 TCGA-A8-A0AD-01  3.72
 head(tcga$cells$Cibersort_ABS)
 #> # A tibble: 6 x 24
 #>   sample          study B_cell_naive B_cell_memory B_cell_plasma T_cell_CD8.
 #>   <chr>           <fct>        <dbl>         <dbl>         <dbl>       <dbl>
-#> 1 TCGA-3C-AAAU-01 BRCA       0             0.0221         0.0192      0.0129
-#> 2 TCGA-3C-AALI-01 BRCA       0.00754       0.00417        0           0.0645
-#> 3 TCGA-3C-AALJ-01 BRCA       0.00520       0.00535        0           0.0358
-#> 4 TCGA-3C-AALK-01 BRCA       0             0.00288        0.0516      0.0360
-#> 5 TCGA-4H-AAAK-01 BRCA       0.00520       0              0           0.0373
-#> 6 TCGA-5L-AAT0-01 BRCA       0.00674       0.0102         0           0.0845
+#> 1 TCGA-3C-AAAU-01 BRCA      0             0.0221         0.0192       0.0129
+#> 2 TCGA-A2-A04Q-01 BRCA      0.0274        0.0249         0.0236       0.118 
+#> 3 TCGA-A2-A0T4-01 BRCA      0.0167        0              0.0159       0.0432
+#> 4 TCGA-A8-A08S-01 BRCA      0             0.00425        0            0.0217
+#> 5 TCGA-A8-A09B-01 BRCA      0.0146        0              0.00612      0.0256
+#> 6 TCGA-A8-A0AD-01 BRCA      0.000919      0.000797       0.00290      0     
 #> # … with 18 more variables: T_cell_CD4._naive <dbl>,
 #> #   T_cell_CD4._memory_resting <dbl>, T_cell_CD4._memory_activated <dbl>,
 #> #   T_cell_follicular_helper <dbl>, T_cell_regulatory_.Tregs. <dbl>,
@@ -104,44 +102,32 @@ expression level (high or low) of a selected gene.
   tissue = "Primary Tumor",
   gene_x = "ICOS"
 ))
-#> # A tibble: 24,046 x 3
-#>    high  cell_type      value
-#>  * <fct> <fct>          <dbl>
-#>  1 Low   B_cell_naive 0.00001
-#>  2 High  B_cell_naive 0.00755
-#>  3 High  B_cell_naive 0.00521
-#>  4 Low   B_cell_naive 0.00001
-#>  5 Low   B_cell_naive 0.00521
-#>  6 High  B_cell_naive 0.00675
-#>  7 High  B_cell_naive 0.00853
-#>  8 Low   B_cell_naive 0.00001
-#>  9 Low   B_cell_naive 0.00001
-#> 10 High  B_cell_naive 0.0297 
-#> # … with 24,036 more rows
+#> # A tibble: 660 x 3
+#>    high  cell_type       value
+#>  * <fct> <fct>           <dbl>
+#>  1 Low   B_cell_naive 0.00001 
+#>  2 High  B_cell_naive 0.0274  
+#>  3 High  B_cell_naive 0.0167  
+#>  4 Low   B_cell_naive 0.00001 
+#>  5 Low   B_cell_naive 0.0146  
+#>  6 Low   B_cell_naive 0.000929
+#>  7 Low   B_cell_naive 0.00180 
+#>  8 High  B_cell_naive 0.0112  
+#>  9 Low   B_cell_naive 0.0141  
+#> 10 Low   B_cell_naive 0.00546 
+#> # … with 650 more rows
 (stats <- calculate_pvalue(df))
 #> Breast Invasive Carcinoma (BRCA; Primary Tumor)
-#> Wilcoxon-Mann-Whitney test with Benjamini & Hochberg correction (n_low = 549; n_high = 544).
-#> # A tibble: 18 x 9
-#>    `Cell type`               `Average(High)` `Average(Low)` `SD(High)` `SD(Low)`
-#>    <fct>                               <dbl>          <dbl>      <dbl>     <dbl>
-#>  1 B_cell_memory                   0.00823        0.000966    0.0264    0.00354 
-#>  2 B_cell_naive                    0.0204         0.00917     0.0293    0.0100  
-#>  3 B_cell_plasma                   0.0210         0.0134      0.0274    0.0171  
-#>  4 Eosinophil                      0.0000220      0.0000344   0.000180  0.000203
-#>  5 Macrophage_M0                   0.0522         0.0297      0.0660    0.0378  
-#>  6 Macrophage_M1                   0.0584         0.0130      0.0410    0.0113  
-#>  7 Macrophage_M2                   0.140          0.0846      0.0642    0.0476  
-#>  8 Monocyte                        0.00832        0.00462     0.0114    0.00792 
-#>  9 Myeloid_dendritic_cell_r…       0.00707        0.00213     0.0121    0.00639 
-#> 10 NK_cell_activated               0.0179         0.00562     0.0200    0.00681 
-#> 11 NK_cell_resting                 0.00104        0.00115     0.00391   0.00276 
-#> 12 T_cell_CD4._memory_activ…       0.00400        0.0000863   0.0107    0.000907
-#> 13 T_cell_CD4._memory_resti…       0.0782         0.0249      0.0678    0.0231  
-#> 14 T_cell_CD4._naive               0.0000219      0.0000838   0.000237  0.000657
-#> 15 T_cell_CD8.                     0.0683         0.0177      0.0594    0.0169  
-#> 16 T_cell_follicular_helper        0.0395         0.0133      0.0252    0.0110  
-#> 17 T_cell_gamma_delta              0.00947        0.00117     0.0189    0.00288 
-#> 18 T_cell_regulatory_.Tregs.       0.0152         0.00379     0.0190    0.00556 
+#> Wilcoxon-Mann-Whitney test with Benjamini & Hochberg correction (n_low = 16; n_high = 14).
+#> # A tibble: 6 x 9
+#>   `Cell type`                `Average(High)` `Average(Low)` `SD(High)` `SD(Low)`
+#>   <fct>                                <dbl>          <dbl>      <dbl>     <dbl>
+#> 1 Macrophage_M1                      0.0454        0.00943      0.0328   0.0116 
+#> 2 Macrophage_M2                      0.109         0.0697       0.0321   0.0368 
+#> 3 T_cell_CD4._memory_resting         0.0504        0.0122       0.0377   0.0124 
+#> 4 T_cell_CD8.                        0.0498        0.0127       0.0387   0.00934
+#> 5 T_cell_follicular_helper           0.0352        0.0119       0.0259   0.00691
+#> 6 T_cell_gamma_delta                 0.00823       0.000956     0.0101   0.00258
 #> # … with 4 more variables: Average(High - Low) <dbl>, P-value <dbl>,
 #> #   P-value adjusted <dbl>, Significance <chr>
 plot(df, stats = stats)
@@ -163,20 +149,20 @@ expressions.
   gene_x = "ICOS",
   stat = "quantile"
 ))
-#> # A tibble: 11,990 x 3
+#> # A tibble: 352 x 3
 #>    high  cell_type      value
 #>  * <fct> <fct>          <dbl>
 #>  1 25%   B_cell_naive 0.00001
-#>  2 75%   B_cell_naive 0.00853
-#>  3 25%   B_cell_naive 0.00001
-#>  4 25%   B_cell_naive 0.00001
-#>  5 25%   B_cell_naive 0.0196 
-#>  6 25%   B_cell_naive 0.0443 
-#>  7 25%   B_cell_naive 0.0118 
-#>  8 75%   B_cell_naive 0.00529
-#>  9 25%   B_cell_naive 0.0236 
-#> 10 25%   B_cell_naive 0.00001
-#> # … with 11,980 more rows
+#>  2 75%   B_cell_naive 0.0274 
+#>  3 25%   B_cell_naive 0.0146 
+#>  4 75%   B_cell_naive 0.0112 
+#>  5 25%   B_cell_naive 0.0141 
+#>  6 25%   B_cell_naive 0.00546
+#>  7 75%   B_cell_naive 0.0289 
+#>  8 75%   B_cell_naive 0.00376
+#>  9 25%   B_cell_naive 0.00001
+#> 10 75%   B_cell_naive 0.00118
+#> # … with 342 more rows
 (stats <- calculate_pvalue(
     df,
     method_test = "t_test",
@@ -184,28 +170,13 @@ expressions.
     p_threshold = 0.01
 ))
 #> Breast Invasive Carcinoma (BRCA; Primary Tumor)
-#> Student's t-test with bonferroni correction (n_low = 273; n_high = 272).
-#> # A tibble: 16 x 9
-#>    `Cell type`                 `Average(75%)` `Average(25%)` `SD(75%)` `SD(25%)`
-#>    <fct>                                <dbl>          <dbl>     <dbl>     <dbl>
-#>  1 B_cell_memory                      0.0135       0.000924     0.0355  0.00339 
-#>  2 B_cell_naive                       0.0260       0.00710      0.0376  0.00792 
-#>  3 B_cell_plasma                      0.0236       0.0109       0.0294  0.0138  
-#>  4 Macrophage_M0                      0.0590       0.0273       0.0742  0.0348  
-#>  5 Macrophage_M1                      0.0811       0.00689      0.0443  0.00629 
-#>  6 Macrophage_M2                      0.153        0.0664       0.0667  0.0384  
-#>  7 Mast_cell_activated                0.0268       0.0175       0.0285  0.0192  
-#>  8 Monocyte                           0.00924      0.00360      0.0124  0.00566 
-#>  9 Myeloid_dendritic_cell_res…        0.00867      0.00145      0.0134  0.00514 
-#> 10 NK_cell_activated                  0.0247       0.00415      0.0240  0.00469 
-#> 11 T_cell_CD4._memory_activat…        0.00724      0.0000449    0.0141  0.000300
-#> 12 T_cell_CD4._memory_resting         0.103        0.0163       0.0802  0.0143  
-#> 13 T_cell_CD8.                        0.0945       0.0111       0.0699  0.0107  
-#> 14 T_cell_follicular_helper           0.0520       0.00963      0.0266  0.00781 
-#> 15 T_cell_gamma_delta                 0.0142       0.000706     0.0244  0.00178 
-#> 16 T_cell_regulatory_.Tregs.          0.0211       0.00258      0.0233  0.00330 
-#> # … with 4 more variables: Average(75% - 25%) <dbl>, P-value <dbl>,
-#> #   P-value adjusted <dbl>, Significance <chr>
+#> Student's t-test with bonferroni correction (n_low = 8; n_high = 8).
+#> # A tibble: 1 x 9
+#>   `Cell type` `Average(75%)` `Average(25%)` `SD(75%)` `SD(25%)` `Average(75% - …
+#>   <fct>                <dbl>          <dbl>     <dbl>     <dbl>            <dbl>
+#> 1 Macrophage…          0.117         0.0456    0.0274    0.0216           0.0719
+#> # … with 3 more variables: P-value <dbl>, P-value adjusted <dbl>,
+#> #   Significance <chr>
 plot(
     df,
     stats = stats,
