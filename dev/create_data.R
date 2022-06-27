@@ -105,15 +105,13 @@ phenotypes <- diseases[diseases$sample_type == tissue,]
 genes <- tcga$genes[tcga$genes$sample %in% phenotypes$sample, c(1, which(colnames(tcga$genes) == gene_x))]
 cells <- tcga$cells[[algorithm]][tcga$cells[[algorithm]]$sample %in% phenotypes$sample, ]
 
-head(sort(tcga$cells$Cibersort_ABS$sample))
-head(sort(tcga$genes$sample))
-head(sort(tcga$phenotypes$sample))
-tail(sort(tcga$cells$Cibersort_ABS$sample))
-tail(sort(tcga$genes$sample))
-tail(sort(tcga$phenotypes$sample))
-dim(tcga$cells$Cibersort_ABS)
-dim(tcga$genes)
-dim(tcga$phenotypes)
+rows <- sample(tcga$cells$Cibersort_ABS$sample, 30)
+
+cells <- cells[cells$sample %in% rows, ]
+phenotypes <- phenotypes[phenotypes$sample %in% rows, ]
+genes <- genes[genes$sample %in% rows, ]
+
+identical(sort(tcga$genes$sample), sort(tcga$phenotypes$sample))
 
 tcga = list(cells = list(Cibersort_ABS = tibble(cells)), genes = tibble(genes), phenotypes = tibble(phenotypes))
 usethis::use_data(tcga, overwrite = TRUE)
