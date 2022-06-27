@@ -8,7 +8,7 @@
 \description{
 Differential analysis of tumor tissue immune cell type
     abundance based on RNA-seq gene-level expression from The Cancer
-    Genome Atlas (TCGA) database.
+    Genome Atlas (TCGA; <https://pancanatlas.xenahubs.net>) database.
 }
 \seealso{
 \itemize{

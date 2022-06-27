@@ -77,6 +77,7 @@ plot(
 )
 ```
 
-```{r end}
+#### Session information
+```{r end, echo = FALSE}
 sessionInfo()
 ```

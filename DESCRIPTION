@@ -14,7 +14,7 @@ Authors@R:
              role = "aut"))
 Description: Differential analysis of tumor tissue immune cell type
     abundance based on RNA-seq gene-level expression from The Cancer
-    Genome Atlas (TCGA) database.
+    Genome Atlas (TCGA; <https://pancanatlas.xenahubs.net>) database.
 License: GPL-3
 Depends: 
     R (>= 2.10)
