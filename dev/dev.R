@@ -1,5 +1,6 @@
 library(devtools)
 library(styler)
+library(golem)
 
 name_r <- "new_function"
 use_r(name_r)
@@ -15,7 +16,7 @@ style_pkg(
         "R/run_app.R",
         "tests/testthat/test-golem-recommended.R"
     )
-  )
+)
 lintr::lint_package()
 
 document()
@@ -23,7 +24,7 @@ build(path = ".")
 install(upgrade = "never")
 build_vignettes()
 build_readme()
-check()
+check(args = c("--as-cran"))
 BiocCheck::BiocCheck(paste0(get_golem_name(), "_", get_golem_version(), ".tar.gz"))
 
 build_manual()
