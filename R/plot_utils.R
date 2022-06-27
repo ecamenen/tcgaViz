@@ -112,9 +112,7 @@ plot.biodata <- function(
         values = col
     )
     if (draw) {
-        options(warn = -1)
-        plot(p)
-        options(warn = 0)
+        suppressWarnings(plot(p))
     } else {
         return(p)
     }

@@ -220,9 +220,7 @@ app_server <- function(input, output, session) {
     )
 
     plot_distribution_app <- function() {
-        options(warn = -1)
-        plot(vars$bioplot)
-        options(warn = 0)
+        suppressWarnings(plot(vars$bioplot))
     }
 
     output$distribution_plot <- renderPlot({
