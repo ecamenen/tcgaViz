@@ -21,6 +21,7 @@
 #' @param col character for the specification for the default plotting color.
 #' See section 'Color Specification' in [graphics::par()].
 #' @param ... arguments to pass to [ggplot2::theme()].
+#' @return No return value, called for side effects
 #' @export
 #'
 #' @examples

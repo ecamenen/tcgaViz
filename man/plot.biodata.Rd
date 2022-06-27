@@ -89,6 +89,9 @@ the top, right, bottom, and left margins)}
 
 \item{...}{arguments to pass to \code{\link[ggplot2:theme]{ggplot2::theme()}}.}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Distribution plot of cell subtypes according to the expression level (high or
 low) of a selected gene.
