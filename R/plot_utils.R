@@ -32,6 +32,7 @@
 #'     tissue = "Primary Tumor",
 #'     gene_x = "ICOS"
 #' ))
+#' \donttest{
 #' plot(df)
 #' stats <- calculate_pvalue(df)
 #' plot(
@@ -47,6 +48,7 @@
 #'     axis.text.y = element_text(size = 8, hjust = 0.5),
 #'     plot.title =  element_text(face = "bold", hjust = 0.5)
 #' )
+#' }
 plot.biodata <- function(
     x,
     type = "violin",

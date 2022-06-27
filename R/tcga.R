@@ -39,7 +39,9 @@
 #'     gene_x = "ICOS"
 #' ))
 #' (stats <- calculate_pvalue(df))
+#' \donttest{
 #' plot(df, stats = stats)
+#' }
 #' @docType data
 #' @keywords datasets
 #' @name tcga
