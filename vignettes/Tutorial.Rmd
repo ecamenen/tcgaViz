@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-#### Load the dataset
+## Load the dataset
 A subset of invasive breast carcinoma data from primary tumor tissue. See
  ``?tcga`` for more information on loading the full dataset or metadata.
 ```{r data}
@@ -28,7 +28,7 @@ head(tcga$genes)
 head(tcga$cells$Cibersort_ABS)
 ```
 
-#### Violin plot of cell subtypes
+## Violin plot of cell subtypes
 And perform a significance of a Wilcoxon adjusted test according to the
  expression level (high or low) of a selected gene.
 ```{r plot, warning = FALSE}
@@ -42,7 +42,7 @@ df <- convert2biodata(
 plot(df, stats = stats)
 ```
 
-###### Advanced parameters
+## Advanced parameters
 With [ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html) expressions.
 ```{r advanced}
 (df <- convert2biodata(
@@ -77,7 +77,7 @@ plot(
 )
 ```
 
-#### Session information
+## Session information
 ```{r end, echo = FALSE}
 sessionInfo()
 ```

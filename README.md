@@ -7,8 +7,6 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tcgaViz)](https://CRAN.R-project.org/package=tcgaViz)
-[![R build
-status](https://github.com/ecamenen/tcgaViz/workflows/R-CMD-check/badge.svg)](https://github.com/ecamenen/tcgaViz/actions)
 <!-- badges: end -->
 
 Differential analysis of tumor tissue immune cell type abundance based
@@ -40,17 +38,17 @@ devtools::install_github("ecamenen/tcgaViz")
 
 ## Docker
 
-###### Pull
+### Pull
 
     docker pull eucee/tcga-viz
 
-###### Run in command-line
+### Run in command-line
 
     docker run --rm -p 127.0.0.1:3838:3838 eucee/tcga-viz
 
 ## Example
 
-###### Load the dataset
+### Load the dataset
 
 A subset of invasive breast carcinoma data from primary tumor tissue.
 See `?tcga` for more information on loading the full dataset or
@@ -90,7 +88,7 @@ head(tcga$cells$Cibersort_ABS)
 #> #   Mast_cell_resting <dbl>, Eosinophil <dbl>, Neutrophil <dbl>
 ```
 
-###### Violin plot of cell subtypes
+### Violin plot of cell subtypes
 
 And perform a significance of a Wilcoxon adjusted test according to the
 expression level (high or low) of a selected gene.
@@ -135,7 +133,7 @@ plot(df, stats = stats)
 
 ![](man/figures/README-plot-1.png)<!-- -->
 
-###### Advanced parameters
+### Advanced parameters
 
 With
 [ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html)
