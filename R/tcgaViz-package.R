@@ -16,7 +16,7 @@
 #' \itemize{
 #' \item [Contribute to the development](https://github.com/ecamenen/tcgaViz)
 #' \item [Report bugs](https://github.com/ecamenen/tcgaViz/issues)
-#' \item [Read the tutorial](https://github.com/ecamenen/tcgaViz/doc/Tutorial.pdf)
+#' \item [Read the tutorial](https://github.com/ecamenen/tcgaViz/blob/master/doc/Tutorial.pdf)
 #' }
 #' @keywords internal
 "_PACKAGE"

@@ -40,7 +40,9 @@ data(tcga)
     tissue = "Primary Tumor",
     gene_x = "ICOS"
 ))
+\donttest{
 calculate_pvalue(df)
+}
 calculate_pvalue(
     df,
     method_test = "t_test",
