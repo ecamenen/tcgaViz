@@ -3,7 +3,6 @@
 .Ruserdata
 *.Rproj*
 .Rproj.user
-inst/doc
 .idea/
 /Meta/
 .local/
@@ -12,3 +11,4 @@ inst/doc
 bin/phantomjs
 /rsconnect/
 *.tar.gz
+doc/

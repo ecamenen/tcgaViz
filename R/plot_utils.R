@@ -21,6 +21,7 @@
 #' @param col character for the specification for the default plotting color.
 #' See section 'Color Specification' in [graphics::par()].
 #' @param ... arguments to pass to [ggplot2::theme()].
+#' @return No return value, called for side effects
 #' @export
 #'
 #' @examples
@@ -32,6 +33,7 @@
 #'     tissue = "Primary Tumor",
 #'     gene_x = "ICOS"
 #' ))
+#' \donttest{
 #' plot(df)
 #' stats <- calculate_pvalue(df)
 #' plot(
@@ -47,6 +49,7 @@
 #'     axis.text.y = element_text(size = 8, hjust = 0.5),
 #'     plot.title =  element_text(face = "bold", hjust = 0.5)
 #' )
+#' }
 plot.biodata <- function(
     x,
     type = "violin",
@@ -109,9 +112,7 @@ plot.biodata <- function(
         values = col
     )
     if (draw) {
-        options(warn = -1)
-        plot(p)
-        options(warn = 0)
+        suppressWarnings(plot(p))
     } else {
         return(p)
     }

@@ -89,6 +89,9 @@ the top, right, bottom, and left margins)}
 
 \item{...}{arguments to pass to \code{\link[ggplot2:theme]{ggplot2::theme()}}.}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Distribution plot of cell subtypes according to the expression level (high or
 low) of a selected gene.
@@ -102,6 +105,7 @@ data(tcga)
     tissue = "Primary Tumor",
     gene_x = "ICOS"
 ))
+\donttest{
 plot(df)
 stats <- calculate_pvalue(df)
 plot(
@@ -117,4 +121,5 @@ plot(
     axis.text.y = element_text(size = 8, hjust = 0.5),
     plot.title =  element_text(face = "bold", hjust = 0.5)
 )
+}
 }
