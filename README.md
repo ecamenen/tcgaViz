@@ -15,7 +15,8 @@ database.
 
 ## Installation
 
-Required: - Softwares : R (≥ 3.3.0) - R libraries : see the
+Required: - Softwares : R (≥ 3.3.0); RStudio
+(<https://posit.co/downloads/>) - R libraries : see the
 [DESCRIPTION](https://github.com/ecamenen/tcgaViz/blob/develop/DESCRIPTION)
 file.
 
@@ -29,12 +30,7 @@ devtools::install_github("ecamenen/tcgaViz")
 
 ## Launch the Shiny server
 
-1.  Download the tcga dataset
-    [here](https://zenodo.org/record/6577211/files/tcga.rda?download=1).
-2.  Copy it in the “extdata” folder of the library (get the path of your
-    library with the following R command:
-    `system.file("extdata", package = "tcgaViz")`.
-3.  Open R and run: `tcgaViz::run_app()`
+Open RStudio and run: `tcgaViz::run_app()`
 
 ## Docker
 
@@ -165,7 +161,7 @@ expressions.
     df,
     method_test = "t_test",
     method_adjust = "bonferroni",
-    p_threshold = 0.01
+    p_threshold = 0.05
 ))
 #> Breast Invasive Carcinoma (BRCA; Primary Tumor)
 #> Student's t-test with bonferroni correction (n_low = 8; n_high = 8).
@@ -191,7 +187,7 @@ plot(
     draw = FALSE
 ) + labs(
     subtitle = paste("Breast Invasive Carcinoma (BRCA; Primary Tumor):",
-    "Student's t-test with Bonferroni (P < 0.01)")
+    "Student's t-test with Bonferroni (P < 0.05)")
 )
 ```
 

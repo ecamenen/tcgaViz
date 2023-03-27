@@ -26,7 +26,7 @@ RNASeq gene-level expression from The Cancer Genome Atlas (TCGA) database.
 ## Installation
 
 Required:
-- Softwares : R (≥ 3.3.0)
+- Softwares : R (≥ 3.3.0); RStudio (https://posit.co/downloads/)
 - R libraries : see the [DESCRIPTION](https://github.com/ecamenen/tcgaViz/blob/develop/DESCRIPTION) file.
 
 You can install the development version from [GitHub](https://github.com/) with:
@@ -37,10 +37,7 @@ devtools::install_github("ecamenen/tcgaViz")
 ```
 
 ## Launch the Shiny server
-1. Download the tcga dataset [here](https://zenodo.org/record/6577211/files/tcga.rda?download=1).
-2. Copy it in the "extdata" folder of the library (get the path of your library
- with the following R command: ```system.file("extdata", package = "tcgaViz")```.
-3. Open R and run: ```tcgaViz::run_app()```
+Open RStudio and run: ```tcgaViz::run_app()```
 
 ## Docker
 
@@ -95,7 +92,7 @@ With [ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html) expr
     df,
     method_test = "t_test",
     method_adjust = "bonferroni",
-    p_threshold = 0.01
+    p_threshold = 0.05
 ))
 plot(
     df,
@@ -112,6 +109,6 @@ plot(
     draw = FALSE
 ) + labs(
     subtitle = paste("Breast Invasive Carcinoma (BRCA; Primary Tumor):",
-    "Student's t-test with Bonferroni (P < 0.01)")
+    "Student's t-test with Bonferroni (P < 0.05)")
 )
 ```
