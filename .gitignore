@@ -13,3 +13,5 @@ inst/doc
 bin/phantomjs
 /rsconnect/
 *.tar.gz
+*.log
+.wget-hsts
