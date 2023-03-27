@@ -6,8 +6,21 @@ app_server <- function(input, output, session) {
 
     ########## Dataset loading ##########
     if (!exists("tcga")) {
+        path <- system.file("extdata", package = "tcgaViz")
+        file <- "tcga.rda"
+        file_path <- file.path(path, file)
+        if (!file.exists(file_path)) {
+            show_message(
+                download.file(
+                    "https://zenodo.org/record/6577211/files/tcga.rda?download=1",
+                    file_path,
+                    "wget"
+                ),
+            "Data extraction in progress..."
+            )
+        }
         show_message(
-            data(tcga, envir = environment()),
+            load(file_path),
             "Data loading in progress..."
         )
     }
