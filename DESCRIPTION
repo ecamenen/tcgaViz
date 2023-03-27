@@ -1,6 +1,6 @@
 Package: tcgaViz
 Title: Visualization Tool for the Cancer Genome Atlas Program (TCGA)
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: 
     c(person(given = "Etienne",
              family = "Camenen",
