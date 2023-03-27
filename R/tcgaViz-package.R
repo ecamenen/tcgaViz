@@ -1,10 +1,9 @@
-#' @import DT golem grDevices plotly rlang rstatix shinyFeedback shinyjs
-#' stringr tidyr tidyselect utils
+#' @import DT golem grDevices plotly rlang rstatix scales shinyFeedback shinyjs
+#' @import stringr tidyr tidyselect utils
 #' @importFrom config get
 #' @importFrom data.table transpose
 #' @importFrom dplyr mutate relocate bind_rows
 #' @importFrom ggpubr ggviolin ggboxplot ggpar stat_pvalue_manual
-#' @importFrom openxlsx read.xlsx
 #' @importFrom readr read_delim
 #' @importFrom reshape2 melt
 #' @importFrom methods is
