@@ -21,3 +21,4 @@ $run_dev.*
 ^.*\.tar\.gz$
 ^.wget-hsts
 .*BiocCheck.*
+^.*\.pdf$

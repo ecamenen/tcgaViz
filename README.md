@@ -15,10 +15,15 @@ database.
 
 ## Installation
 
-Required: - Softwares : R (≥ 3.3.0); RStudio
-(<https://posit.co/downloads/>) - R libraries : see the
-[DESCRIPTION](https://github.com/ecamenen/tcgaViz/blob/develop/DESCRIPTION)
-file.
+### Prerequisites
+
+-   Softwares : R (≥ 4.0.0), RStudio (<https://posit.co/downloads/>)
+
+-   R libraries : see the
+    [DESCRIPTION](https://github.com/ecamenen/tcgaViz/blob/develop/DESCRIPTION)
+    file.
+
+### Installation
 
 You can install the development version from
 [GitHub](https://github.com/) with:

@@ -13,3 +13,4 @@ bin/phantomjs
 *.tar.gz
 *.log
 .wget-hsts
+/doc/
