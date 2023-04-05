@@ -1,6 +1,6 @@
 Package: tcgaViz
 Title: Visualization Tool for the Cancer Genome Atlas Program (TCGA)
-Version: 1.0.0
+Version: 1.0.2
 Authors@R: 
     c(person(given = "Etienne",
              family = "Camenen",
@@ -17,7 +17,7 @@ Description: Differential analysis of tumor tissue immune cell type
     Genome Atlas (TCGA; <https://pancanatlas.xenahubs.net>) database.
 License: GPL-3
 Depends: 
-    R (>= 2.10)
+    R (>= 4.0.0)
 Imports: 
     config,
     data.table,
@@ -29,12 +29,12 @@ Imports:
     grDevices,
     magrittr,
     methods,
-    openxlsx,
     plotly,
     readr,
     reshape2,
     rlang,
     rstatix,
+    scales,
     shiny,
     shinyFeedback,
     shinyjs,
@@ -44,7 +44,6 @@ Imports:
     tidyselect,
     utils
 Suggests:
-    BiocCheck,
     covr,
     knitr,
     rmarkdown,
@@ -52,8 +51,6 @@ Suggests:
     testthat
 VignetteBuilder: 
     knitr
-biocViews: Visualization, ImmunoOncology, Genetics, GeneExpression,
-    MultipleComparison, DifferentialExpression, RNASeq
 Encoding: UTF-8
 Language: en-US
 LazyData: false

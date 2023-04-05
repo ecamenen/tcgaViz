@@ -19,3 +19,6 @@ $run_dev.*
 ^rsconnect$
 ^.*extdata/tcga\.rda$
 ^.*\.tar\.gz$
+^.wget-hsts
+.*BiocCheck.*
+^.*\.pdf$
