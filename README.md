@@ -33,14 +33,17 @@ You can install the development version from
 devtools::install_github("ecamenen/tcgaViz")
 ```
 
-## Launch the Shiny server
+### Final step (for the CRAN installation only)
 
 1.  Download the tcga dataset
-    [here](https://zenodo.org/record/6577211/files/tcga.rda?download=1).
+    [here](https://zenodo.org/record/6577211/files/tcga.rda?download=1)
 2.  Copy it in the “extdata” folder of the library (get the path of your
     library with the following R command:
-    `system.file("extdata", package = "tcgaViz")`.
-3.  Open RStudio and run: `tcgaViz::run_app()`
+    `system.file("extdata", package = "tcgaViz")`
+
+## Launch the Shiny server
+
+Open RStudio and run: `tcgaViz::run_app()`
 
 ## Docker
 
