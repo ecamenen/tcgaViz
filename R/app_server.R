@@ -23,6 +23,7 @@ app_server <- function(input, output, session) {
             load(file_path),
             "Data loading in progress..."
         )
+        tcga <<- tcga
     }
 
     vars <- reactiveValues(
