@@ -7,10 +7,6 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tcgaViz)](https://CRAN.R-project.org/package=tcgaViz)
-[![R build
-status](https://github.com/ecamenen/tcgaViz/workflows/R-CMD-check/badge.svg)](https://github.com/ecamenen/tcgaViz/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/ecamenen/tcgaViz/branch/develop/graph/badge.svg)](https://app.codecov.io/gh/ecamenen/tcgaViz?branch=master)
 <!-- badges: end -->
 
 Differential analysis of tumor tissue immune cell type abundance based
@@ -19,7 +15,8 @@ database.
 
 ## Installation
 
-Required: - Softwares : R (≥ 3.3.0) - R libraries : see the
+Required: - Softwares : R (≥ 3.3.0); RStudio
+(<https://posit.co/downloads/>) - R libraries : see the
 [DESCRIPTION](https://github.com/ecamenen/tcgaViz/blob/develop/DESCRIPTION)
 file.
 
@@ -33,25 +30,26 @@ devtools::install_github("ecamenen/tcgaViz")
 
 ## Launch the Shiny server
 
-Open R, then run:
-
-``` r
-tcgaViz::run_app()
-```
+1.  Download the tcga dataset
+    [here](https://zenodo.org/record/6577211/files/tcga.rda?download=1).
+2.  Copy it in the “extdata” folder of the library (get the path of your
+    library with the following R command:
+    `system.file("extdata", package = "tcgaViz")`.
+3.  Open RStudio and run: `tcgaViz::run_app()`
 
 ## Docker
 
-###### Pull
+### Pull
 
     docker pull eucee/tcga-viz
 
-###### Run in command-line
+### Run in command-line
 
     docker run --rm -p 127.0.0.1:3838:3838 eucee/tcga-viz
 
 ## Example
 
-###### Load the dataset
+### Load the dataset
 
 A subset of invasive breast carcinoma data from primary tumor tissue.
 See `?tcga` for more information on loading the full dataset or
@@ -91,7 +89,7 @@ head(tcga$cells$Cibersort_ABS)
 #> #   Mast_cell_resting <dbl>, Eosinophil <dbl>, Neutrophil <dbl>
 ```
 
-###### Violin plot of cell subtypes
+### Violin plot of cell subtypes
 
 And perform a significance of a Wilcoxon adjusted test according to the
 expression level (high or low) of a selected gene.
@@ -136,7 +134,7 @@ plot(df, stats = stats)
 
 ![](man/figures/README-plot-1.png)<!-- -->
 
-###### Advanced parameters
+### Advanced parameters
 
 With
 [ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html)
@@ -168,14 +166,15 @@ expressions.
     df,
     method_test = "t_test",
     method_adjust = "bonferroni",
-    p_threshold = 0.01
+    p_threshold = 0.05
 ))
 #> Breast Invasive Carcinoma (BRCA; Primary Tumor)
 #> Student's t-test with bonferroni correction (n_low = 8; n_high = 8).
-#> # A tibble: 1 x 9
+#> # A tibble: 2 x 9
 #>   `Cell type` `Average(75%)` `Average(25%)` `SD(75%)` `SD(25%)` `Average(75% - …
 #>   <fct>                <dbl>          <dbl>     <dbl>     <dbl>            <dbl>
-#> 1 Macrophage…          0.117         0.0456    0.0274    0.0216           0.0719
+#> 1 Macrophage…         0.0646        0.00560    0.0348   0.00651           0.0590
+#> 2 Macrophage…         0.117         0.0456     0.0274   0.0216            0.0719
 #> # … with 3 more variables: P-value <dbl>, P-value adjusted <dbl>,
 #> #   Significance <chr>
 plot(
@@ -193,7 +192,7 @@ plot(
     draw = FALSE
 ) + labs(
     subtitle = paste("Breast Invasive Carcinoma (BRCA; Primary Tumor):",
-    "Student's t-test with Bonferroni (P < 0.01)")
+    "Student's t-test with Bonferroni (P < 0.05)")
 )
 ```
 

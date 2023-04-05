@@ -1,0 +1,83 @@
+---
+title: "Tutorial"
+output:
+    rmarkdown::html_vignette:
+      fig_width: 11
+      fig_height: 8
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Load the dataset
+A subset of invasive breast carcinoma data from primary tumor tissue. See
+ ``?tcga`` for more information on loading the full dataset or metadata.
+```{r data}
+library(tcgaViz)
+library(ggplot2)
+data(tcga)
+head(tcga$genes)
+head(tcga$cells$Cibersort_ABS)
+```
+
+## Violin plot of cell subtypes
+And perform a significance of a Wilcoxon adjusted test according to the
+ expression level (high or low) of a selected gene.
+```{r plot, warning = FALSE}
+df <- convert2biodata(
+  algorithm = "Cibersort_ABS",
+  disease = "breast invasive carcinoma",
+  tissue = "Primary Tumor",
+  gene_x = "ICOS"
+)
+(stats <- calculate_pvalue(df))
+plot(df, stats = stats)
+```
+
+## Advanced parameters
+With [ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html) expressions.
+```{r advanced}
+(df <- convert2biodata(
+  algorithm = "Cibersort_ABS",
+  disease = "breast invasive carcinoma",
+  tissue = "Primary Tumor",
+  gene_x = "ICOS",
+  stat = "quantile"
+))
+(stats <- calculate_pvalue(
+  df,
+  method_test = "t_test",
+  method_adjust = "bonferroni",
+  p_threshold = 0.01
+))
+plot(
+  df,
+  stats = stats,
+  type = "boxplot",
+  dots = TRUE,
+  xlab = "Expression level of the 'ICOS' gene by cell type",
+  ylab = "Percent of relative abundance\n(from the Cibersort_ABS algorithm)",
+  title = toupper("Differential analysis of immune cell type abundance
+    based on RNASeq gene-level expression from The Cancer Genome Atlas"),
+  axis.text.y = element_text(size = 8, hjust = 0.5),
+  plot.title =  element_text(face = "bold", hjust = 0.5),
+  plot.subtitle =  element_text(size = , face = "italic", hjust = 0.5),
+  draw = FALSE
+) + labs(
+  subtitle = paste("Breast Invasive Carcinoma (BRCA; Primary Tumor):",
+                   "Student's t-test with Bonferroni (P < 0.01)")
+)
+```
+
+## Session information
+```{r end, echo = FALSE}
+sessionInfo()
+```

@@ -48,7 +48,7 @@ For more information about this function, please take a look at
 \url{https://CRAN.R-project.org/package=golem/vignettes/c_deploy.html}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 # Start app in the current working directory
 run_app()
 

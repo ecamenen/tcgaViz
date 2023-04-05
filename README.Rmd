@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/tcgaViz)](https://CRAN.R-project.org/package=tcgaViz)
-[![R build status](https://github.com/ecamenen/tcgaViz/workflows/R-CMD-check/badge.svg)](https://github.com/ecamenen/tcgaViz/actions)
 <!-- badges: end -->
 
 Differential analysis of tumor tissue immune cell type abundance based on
@@ -27,7 +26,7 @@ RNASeq gene-level expression from The Cancer Genome Atlas (TCGA) database.
 ## Installation
 
 Required:
-- Softwares : R (≥ 3.3.0)
+- Softwares : R (≥ 3.3.0); RStudio (https://posit.co/downloads/)
 - R libraries : see the [DESCRIPTION](https://github.com/ecamenen/tcgaViz/blob/develop/DESCRIPTION) file.
 
 You can install the development version from [GitHub](https://github.com/) with:
@@ -38,26 +37,26 @@ devtools::install_github("ecamenen/tcgaViz")
 ```
 
 ## Launch the Shiny server
-Open R, then run:
-```r
-tcgaViz::run_app()
-```
+1. Download the tcga dataset [here](https://zenodo.org/record/6577211/files/tcga.rda?download=1).
+2. Copy it in the "extdata" folder of the library (get the path of your library
+ with the following R command: ```system.file("extdata", package = "tcgaViz")```.
+3. Open RStudio and run: ```tcgaViz::run_app()```
 
 ## Docker
 
-###### Pull
+### Pull
 ```
 docker pull eucee/tcga-viz
 ```
 
-###### Run in command-line
+### Run in command-line
 ```
 docker run --rm -p 127.0.0.1:3838:3838 eucee/tcga-viz
 ```
 
 ## Example
 
-###### Load the dataset
+### Load the dataset
 A subset of invasive breast carcinoma data from primary tumor tissue. See
  ``?tcga`` for more information on loading the full dataset or metadata.
 ```{r setup}
@@ -68,7 +67,7 @@ head(tcga$genes)
 head(tcga$cells$Cibersort_ABS)
 ```
 
-###### Violin plot of cell subtypes
+### Violin plot of cell subtypes
 And perform a significance of a Wilcoxon adjusted test according to the
  expression level (high or low) of a selected gene.
 ```{r plot}
@@ -82,7 +81,7 @@ And perform a significance of a Wilcoxon adjusted test according to the
 plot(df, stats = stats)
 ```
 
-###### Advanced parameters
+### Advanced parameters
 With [ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html) expressions.
 ```{r advanced}
 (df <- convert2biodata(
@@ -96,7 +95,7 @@ With [ggplot2::theme()](https://ggplot2.tidyverse.org/reference/theme.html) expr
     df,
     method_test = "t_test",
     method_adjust = "bonferroni",
-    p_threshold = 0.01
+    p_threshold = 0.05
 ))
 plot(
     df,
@@ -113,6 +112,6 @@ plot(
     draw = FALSE
 ) + labs(
     subtitle = paste("Breast Invasive Carcinoma (BRCA; Primary Tumor):",
-    "Student's t-test with Bonferroni (P < 0.01)")
+    "Student's t-test with Bonferroni (P < 0.05)")
 )
 ```
